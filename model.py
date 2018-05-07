@@ -59,9 +59,8 @@ class AppText(db.Model):
 
 
 def connect_to_db(app):
-    """Connect the database to our Flask app."""
+    """Connect the database to Flask app."""
 
-    # Configure to use our database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
     app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
