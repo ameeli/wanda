@@ -6,6 +6,9 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/static/css/party.css">
+  {% for message in get_flashed_messages() %}
+    {{ message }}
+  {% endfor %}
 </head>
 <body>
   {% block content %}CONTENT HERE{% endblock %}

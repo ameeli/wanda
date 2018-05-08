@@ -1,5 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+
 db = SQLAlchemy()
+
 
 class User(db.Model):
     """User of wellness website."""
@@ -11,12 +14,17 @@ class User(db.Model):
     lname = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password = db.Column(db.String(64))
-    phone = db.Column(db.String(12))
-    timezone = db.Column(db.String(64))
+    mobile = db.Column(db.String(12))
 
     time_windows = db.relationship('TimeWindow')
     texts =  db.relationship('AppText')
     responses = db.relationship('Response')
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return '<id={} name={} {} email={} mobile={}>'\
+                .format(self.id, self.fname, self.lname, self.email, self.mobile)
 
 
 class TimeWindow(db.Model):
@@ -29,6 +37,13 @@ class TimeWindow(db.Model):
     end_time = db.Column(db.Time)
     day_of_week = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return '<id={} start_time={} end_time={} day_of_week={} user_id={}'\
+                .format(self.id, self.start_time, self.end_time, self.day_of_week, 
+                self.user_id)
 
 
 class Response(db.Model):
@@ -45,6 +60,13 @@ class Response(db.Model):
 
     text = db.relationship('AppText')
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return '<id={} response={} response_type={} timestamp={} user_id={} text_id={}>'\
+                .format(self.id, self.response, self.response_type, self.timestamp,
+                self.user_id, self.text_id)
+
 
 class AppText(db.Model):
     """Text that app sends to user."""
@@ -57,18 +79,24 @@ class AppText(db.Model):
 
     responses = db.relationship('Response')
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return '<id={} sent_time={} user_id={}>'\
+                .format(self.id. self.sent_time, self.user_id)
+
 
 def connect_to_db(app):
     """Connect the database to Flask app."""
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
     app.config['SQLALCHEMY_ECHO'] = True
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
 
 
 if __name__ == '__main__':
-    from flask import Flask
     app = Flask(__name__)
     connect_to_db(app)
     db.create_all()
