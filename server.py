@@ -25,7 +25,7 @@ def display_homepage():
     """Display homepage to user."""
 
     # check if user is logged in
-    if 'email' not in session:
+    if 'fname' not in session:
         return render_template("homepage.html")
 
     else:
@@ -62,12 +62,16 @@ def add_user():
     db.session.add(user)
     db.session.commit()
 
-    flash('Wanda welcomes you! Please log in to your new account.')
+    flash('Wanda welcomes you! Please set up your preferences.')
+
+    # add user's first name and user_id to session
+    session['fname'] = fname
+    session['user_id'] = user.id
     
     # send confirmation text to user's mobile using Twilio
     send_welcome_text(mobile)
 
-    return redirect('/login') # edit redirect to profile page
+    return redirect('/preferences') # edit redirect to profile page
 
 
 @app.route('/login', methods=['GET'])
@@ -84,18 +88,34 @@ def login_user():
     email = request.form['email']
     password = request.form['password']
 
-    user = User.query.filter(User.email==email).one()
+    user = User.query.filter(User.email==email).first()
 
+    # if user email is in db and password matches
     if user and user.password == password:
-        # add email and password to session
-        session['email'] = email
+        # add user's first name and user_id to session
         session['fname'] = user.fname
+        session['user_id'] = user.user_id
 
-        return redirect('/') # edit redirect to profile page
+        return redirect('/')
 
     else:
         flash('Your email or password was incorrect. Please try again.')
         return redirect('/login')
+
+
+@app.route('/preferences')
+def show_preferences():
+    """Shows user's current preferences and gives option to update."""
+
+    return render_template("preferences.html",
+                            fname=session['fname'])
+
+
+@app.route('/preferences', methods=['POST'])
+def update_preferences():
+    """Adds user's time window preferences to time_windows table in db."""
+
+
 
 
 # this route is an example from Twilio of how to respond to a user text
