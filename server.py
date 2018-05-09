@@ -22,9 +22,15 @@ app.secret_key = 'KEY'
 
 @app.route('/')
 def display_homepage():
-    """Display homepage."""
+    """Display homepage to user."""
 
-    return render_template("homepage.html")
+    # check if user is logged in
+    if 'email' not in session:
+        return render_template("homepage.html")
+
+    else:
+        return render_template("profile_overview.html",
+                                fname=session['fname'])
 
 
 @app.route('/register', methods=['GET'])
@@ -36,7 +42,7 @@ def show_signup_form():
 
 @app.route('/register', methods=['POST'])
 def add_user():
-    """Adds new user to database."""
+    """Adds new user to database and texts confirmation to their mobile."""
 
     # get form variables from register_form.html
     fname = request.form['fname']
@@ -56,14 +62,12 @@ def add_user():
     db.session.add(user)
     db.session.commit()
 
-    flash("Wanda welcomes you!")
-
+    flash('Wanda welcomes you! Please log in to your new account.')
+    
     # send confirmation text to user's mobile using Twilio
-    client.messages.create(body="Wanda warmly welcomes you!",
-                           from_="+14159156178",
-                           to=mobile)
+    send_welcome_text(mobile)
 
-    return redirect('/home') # edit redirect to profile page
+    return redirect('/login') # edit redirect to profile page
 
 
 @app.route('/login', methods=['GET'])
@@ -83,17 +87,15 @@ def login_user():
     user = User.query.filter(User.email==email).one()
 
     if user and user.password == password:
-        return redirect('/home') # edit redirect to profile page
+        # add email and password to session
+        session['email'] = email
+        session['fname'] = user.fname
+
+        return redirect('/') # edit redirect to profile page
 
     else:
         flash('Your email or password was incorrect. Please try again.')
         return redirect('/login')
-
-
-@app.route('/home')
-def hello():
-    """Renders homepage.html."""
-    return "Hello world!"
 
 
 # this route is an example from Twilio of how to respond to a user text
@@ -109,6 +111,14 @@ def sms_ahoy_reply():
     resp.message("Ahoy! Thanks so much for your message.")
 
     return str(resp)
+
+
+def send_welcome_text(mobile):
+    """Sends user welcome text message."""
+
+    client.messages.create(body="Wanda warmly welcomes you!",
+                           from_="+14159156178",
+                           to=mobile)
 
 
 if __name__ == "__main__":
