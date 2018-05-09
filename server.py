@@ -8,7 +8,7 @@ from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 
 # import objects and classes from model.py
-from model import connect_to_db, db, User
+from model import connect_to_db, db, User, TimeWindow, Response, AppText
 
 import os
 # my Account Sid and Auth Token from twilio.com/console
@@ -115,7 +115,29 @@ def show_preferences():
 def update_preferences():
     """Adds user's time window preferences to time_windows table in db."""
 
+    # get 2 lists of start and stop times from preferences.html
+    start_times = request.form.getlist('start_time')
+    stop_times = request.form.getlist('stop_time')
+    days_of_week = [1, 2, 3, 4, 5, 6, 7]
 
+    # zip start_times, stop_times, and days_of_week into list of tuples
+    time_windows = zip(start_times, stop_times, days_of_week)
+
+    # for every item in time_window, instantiate an instance of TimeWindow
+    for window in time_windows:
+        time_window = TimeWindow(start_time=window[0],
+                                 end_time=window[1],
+                                 day_of_week=window[2],
+                                 user_id=session['user_id'])
+
+        # add time_window to database
+        db.session.add(time_window)
+
+    db.session.commit()
+
+    flash('Your time window preferences have been successfully updated!')
+
+    return redirect('/')
 
 
 # this route is an example from Twilio of how to respond to a user text
@@ -141,6 +163,7 @@ def send_welcome_text(mobile):
                            to=mobile)
 
 
+
 if __name__ == "__main__":
     app.debug = True
 
@@ -148,5 +171,34 @@ if __name__ == "__main__":
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
-
     app.run(host="0.0.0.0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

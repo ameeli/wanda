@@ -46,6 +46,24 @@ class TimeWindow(db.Model):
                 self.user_id)
 
 
+class AppText(db.Model):
+    """Text that app sends to user."""
+
+    __tablename__ = 'texts'
+    
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    sent_time = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    responses = db.relationship('Response')
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return '<id={} sent_time={} user_id={}>'\
+                .format(self.id. self.sent_time, self.user_id)
+
+
 class Response(db.Model):
     """Each response from user."""
 
@@ -66,24 +84,6 @@ class Response(db.Model):
         return '<id={} response={} response_type={} timestamp={} user_id={} text_id={}>'\
                 .format(self.id, self.response, self.response_type, self.timestamp,
                 self.user_id, self.text_id)
-
-
-class AppText(db.Model):
-    """Text that app sends to user."""
-
-    __tablename__ = 'texts'
-    
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    sent_time = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    responses = db.relationship('Response')
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return '<id={} sent_time={} user_id={}>'\
-                .format(self.id. self.sent_time, self.user_id)
 
 
 def connect_to_db(app):
