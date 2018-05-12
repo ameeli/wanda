@@ -86,6 +86,9 @@ class Response(db.Model):
                 self.user_id, self.text_id)
 
 
+################################################################################
+
+
 def connect_to_db(app):
     """Connect the database to Flask app."""
 

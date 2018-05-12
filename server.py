@@ -1,20 +1,12 @@
+"""from flask_debugtoolbar import DebugToolbarExtension"""
 # import flask libraries
 from flask import Flask, flash, session
 from flask import request, render_template, redirect
-# from flask_debugtoolbar import DebugToolbarExtension
-
-# download the helper library from https://www.twilio.com/docs/python/install
-from twilio.rest import Client
-from twilio.twiml.messaging_response import MessagingResponse
-
 # import objects and classes from model.py
-from model import connect_to_db, db, User, TimeWindow, Response, AppText
-
-import os
-# my Account Sid and Auth Token from twilio.com/console
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-client = Client(os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"])
+from model import connect_to_db, db, User, TimeWindow, AppText, Response
+from send_texts import send_welcome_text
+from datetime import datetime
+# from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 app.secret_key = 'KEY'
@@ -140,28 +132,28 @@ def update_preferences():
     return redirect('/')
 
 
-# this route is an example from Twilio of how to respond to a user text
+# this is an example from Twilio of how to respond to a user text
 @app.route("/sms", methods=['GET', 'POST'])
-def sms_ahoy_reply():
-    """Respond to incoming messages with a friendly SMS."""
-    # Start our response
+def incoming_sms():
+    """Gets user's responses to app's texts."""
 
-    # binding resp to the class MessagingResponse()
-    resp = MessagingResponse() 
+    # Get the message the user sent our Twilio number
+    body = request.values.get('Body', None)
 
-    # give text to message attribute of resp
-    resp.message("Ahoy! Thanks so much for your message.")
+    # instantiate instance of Response class
+    text = Response(response=body,
+                    response_type=,
+                    timestamp=datetime.now(),
+                    user_id=session['user_id'],
+                    text_id=)
 
-    return str(resp)
+    db.session.add(text)
+    db.session.commit()
 
 
-def send_welcome_text(mobile):
-    """Sends user welcome text message."""
 
-    client.messages.create(body="Wanda warmly welcomes you!",
-                           from_="+14159156178",
-                           to=mobile)
 
+################################################################################
 
 
 if __name__ == "__main__":
