@@ -35,6 +35,8 @@ def send_survey(mobile):
                            from_="+14159156178",
                            to=mobile)
 
+    # add text to db, grab current time stamp
+
 
 
 def send_reminder(mobile):

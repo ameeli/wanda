@@ -133,22 +133,22 @@ def update_preferences():
 
 
 # this is an example from Twilio of how to respond to a user text
-@app.route("/sms", methods=['GET', 'POST'])
-def incoming_sms():
-    """Gets user's responses to app's texts."""
+# @app.route("/sms", methods=['GET', 'POST'])
+# def incoming_sms():
+#     """Gets user's responses to app's texts."""
 
-    # Get the message the user sent our Twilio number
-    body = request.values.get('Body', None)
+#     # Get the message the user sent our Twilio number
+#     body = request.values.get('Body', None)
 
-    # instantiate instance of Response class
-    text = Response(response=body,
-                    response_type=,
-                    timestamp=datetime.now(),
-                    user_id=session['user_id'],
-                    text_id=)
+#     # instantiate instance of Response class
+#     text = Response(response=body,
+#                     response_type=,
+#                     timestamp=datetime.now(),
+#                     user_id=session['user_id'],
+#                     text_id=)
 
-    db.session.add(text)
-    db.session.commit()
+#     db.session.add(text)
+#     db.session.commit()
 
 
 

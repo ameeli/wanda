@@ -106,23 +106,3 @@ if __name__ == '__main__':
 
     print "Connected to DB."
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
