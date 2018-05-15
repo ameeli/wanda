@@ -17,7 +17,7 @@ class User(db.Model):
     mobile = db.Column(db.String(12))
 
     time_windows = db.relationship('TimeWindow')
-    texts =  db.relationship('AppText')
+    texts =  db.relationship('Text')
     responses = db.relationship('Response')
 
     def __repr__(self):
@@ -46,7 +46,7 @@ class TimeWindow(db.Model):
                 self.user_id)
 
 
-class AppText(db.Model):
+class Text(db.Model):
     """Text that app sends to user."""
 
     __tablename__ = 'texts'
@@ -71,12 +71,11 @@ class Response(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     response = db.Column(db.Text())
-    response_type = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     text_id = db.Column(db.Integer, db.ForeignKey('texts.id'))
 
-    text = db.relationship('AppText')
+    text = db.relationship('Text')
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -92,7 +91,7 @@ class Response(db.Model):
 def connect_to_db(app):
     """Connect the database to Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///wanda'
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
