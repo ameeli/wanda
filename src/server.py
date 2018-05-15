@@ -3,7 +3,7 @@
 from flask import Flask, flash, session
 from flask import request, render_template, redirect
 # import objects and classes from model.py
-from model import connect_to_db, db, User, TimeWindow, AppText, Response
+from model import connect_to_db, db, User, TimeWindow, Response
 from send_texts import send_welcome_text
 from datetime import datetime
 # from twilio.twiml.messaging_response import MessagingResponse
@@ -95,12 +95,26 @@ def login_user():
         return redirect('/login')
 
 
+@app.route('/logout')
+def logout_user():
+    """Logs user out of app."""
+
+    del session['fname']
+    del session['user_id']
+
+    return redirect('/')
+
+
 @app.route('/preferences')
 def show_preferences():
     """Shows user's current preferences and gives option to update."""
 
-    return render_template("preferences.html",
-                            fname=session['fname'])
+    if 'fname' in session:
+        return render_template("preferences.html",
+                               fname=session['fname'])
+
+    else:
+        return redirect('/')
 
 
 @app.route('/preferences', methods=['POST'])
