@@ -3,14 +3,16 @@
 from flask import Flask, flash, session
 from flask import request, render_template, redirect
 # import objects and classes from model.py
-from model import connect_to_db, db, User, TimeWindow, Response
+from model import connect_to_db, db, User, TimeWindow, Text, Response
 from send_texts import send_welcome_text
 from datetime import datetime
 import pytz
+from sqlalchemy import func
 # from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 app.secret_key = 'KEY'
+app.config.from_object(__name__)
 
 
 @app.route('/')
@@ -62,7 +64,7 @@ def add_user():
     session['user_id'] = user.id
     
     # send confirmation text to user's mobile using Twilio
-    send_welcome_text(mobile)
+    send_welcome_text(mobile, user.id)
 
     return redirect('/preferences') # edit redirect to profile page
 
@@ -154,17 +156,34 @@ def incoming_sms():
     # Get the message the user sent our Twilio number
     body = request.values.get('Body', None)
 
+    mobile = str(request.values.get('From'))[-10:]
+
+    # query for user_id using mobile
+    user_id = db.session.query(User.id).filter(User.mobile==mobile).scalar()
+
+    # query for time of last sent text to the user
+    last_text_time = db.session.query(
+        func.max(Text.sent_time)
+    ).filter(
+        Text.user_id==user_id
+    ).scalar()
+
+    # query for id of Text using user_id and sent_time
+    last_text_id = db.session.query(
+        Text.id
+    ).filter(
+        Text.user_id==user_id, Text.sent_time==last_text_time
+    ).scalar()
+
+
     pacific = pytz.timezone('US/Pacific')
     response = Response(response=body,
-                        response_type=,
                         timestamp=datetime.now(tz=pacific).replace(tzinfo=None),
-                        user_id=session['user_id'],
-                        text_id=)
+                        user_id=user_id,
+                        text_id=last_text_id)
 
     db.session.add(response)
     db.session.commit()
-
-
 
 
 ################################################################################
