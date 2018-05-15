@@ -25,7 +25,7 @@ def send_survey(mobile, user_id):
     """Sends user message with 3 survey questions."""
 
     text = ("Hi there! This is your Wanda check in. " 
-            "Please respond to the next 3 questions in 3 separate texts."
+            "Please respond to these 3 questions with 3 integers, separated by commas."
             "\n\n1. Was your mind wandering right before this text?"
             "\n2. What activity were you doing?"
             "\n3. On a scale of 1 to 10, how are you feeling?")

@@ -6,6 +6,7 @@ from flask import request, render_template, redirect
 from model import connect_to_db, db, User, TimeWindow, Response
 from send_texts import send_welcome_text
 from datetime import datetime
+import pytz
 # from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
@@ -146,23 +147,22 @@ def update_preferences():
     return redirect('/')
 
 
-# this is an example from Twilio of how to respond to a user text
-# @app.route("/sms", methods=['GET', 'POST'])
-# def incoming_sms():
-#     """Gets user's responses to app's texts."""
+@app.route("/sms", methods=['GET', 'POST'])
+def incoming_sms():
+    """Gets user's responses to app's texts."""
 
-#     # Get the message the user sent our Twilio number
-#     body = request.values.get('Body', None)
+    # Get the message the user sent our Twilio number
+    body = request.values.get('Body', None)
 
-#     # instantiate instance of Response class
-#     text = Response(response=body,
-#                     response_type=,
-#                     timestamp=datetime.now(),
-#                     user_id=session['user_id'],
-#                     text_id=)
+    pacific = pytz.timezone('US/Pacific')
+    response = Response(response=body,
+                        response_type=,
+                        timestamp=datetime.now(tz=pacific).replace(tzinfo=None),
+                        user_id=session['user_id'],
+                        text_id=)
 
-#     db.session.add(text)
-#     db.session.commit()
+    db.session.add(response)
+    db.session.commit()
 
 
 
