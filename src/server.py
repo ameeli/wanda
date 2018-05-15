@@ -86,7 +86,7 @@ def login_user():
     if user and user.password == password:
         # add user's first name and user_id to session
         session['fname'] = user.fname
-        session['user_id'] = user.user_id
+        session['user_id'] = user.id
 
         return redirect('/')
 

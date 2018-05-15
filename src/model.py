@@ -61,7 +61,7 @@ class AppText(db.Model):
         """Provide helpful representation when printed."""
 
         return '<id={} sent_time={} user_id={}>'\
-                .format(self.id. self.sent_time, self.user_id)
+                .format(self.id, self.sent_time, self.user_id)
 
 
 class Response(db.Model):

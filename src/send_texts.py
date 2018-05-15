@@ -1,6 +1,10 @@
 
 # download the helper library from https://www.twilio.com/docs/python/install
 from twilio.rest import Client
+from model import connect_to_db, db, AppText
+from datetime import datetime
+from flask import Flask
+import pytz
 
 import os
 # my Account Sid and Auth Token from twilio.com/console
@@ -17,17 +21,12 @@ def send_welcome_text(mobile):
                            to=mobile)
 
 
-"""
-create functions that send user text
--one to send text asking 3 questions
--one that follows up after user does not respond after a certain time
-"""
-def send_survey(mobile):
+def send_survey(mobile, user_id):
     """Sends user message with 3 survey questions."""
 
     text = ("Hi there! This is your Wanda check in. " 
             "Please respond to the next 3 questions in 3 separate texts."
-            "\n1. Was your mind wandering right before this text?"
+            "\n\n1. Was your mind wandering right before this text?"
             "\n2. What activity were you doing?"
             "\n3. On a scale of 1 to 10, how are you feeling?")
 
@@ -35,8 +34,12 @@ def send_survey(mobile):
                            from_="+14159156178",
                            to=mobile)
 
-    # add text to db, grab current time stamp
+    pacific = pytz.timezone('US/Pacific')
+    text = AppText(sent_time=datetime.now(tz=pacific).replace(tzinfo=None),
+                   user_id=user_id)
 
+    db.session.add(text)
+    db.session.commit()
 
 
 def send_reminder(mobile):
@@ -63,26 +66,10 @@ def sms_ahoy_reply():
     return str(resp)
 
 
+################################################################################
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    app = Flask(__name__)
+    connect_to_db(app)
 
