@@ -1,14 +1,11 @@
-"""from flask_debugtoolbar import DebugToolbarExtension"""
-# import flask libraries
-from flask import Flask, flash, session
+from flask import Flask, flash, session, jsonify
 from flask import request, render_template, redirect
-# import objects and classes from model.py
 from model import connect_to_db, db, User, TimeWindow, Text, Response
 from send_texts import send_welcome_text
 from datetime import datetime
 import pytz
 from sqlalchemy import func
-# from twilio.twiml.messaging_response import MessagingResponse
+from chart_data import pie_data, mw_graph_data, not_mw_graph_data
 
 app = Flask(__name__)
 app.secret_key = 'KEY'
@@ -24,8 +21,11 @@ def display_homepage():
         return render_template("homepage.html")
 
     else:
+        # query into db and find mw_occurrences and not_mw_occurrences
+
         return render_template("profile_overview.html",
-                                fname=session['fname'])
+                                fname=session['fname'],
+                                pie_data=jsonify(pie_data))
 
 
 @app.route('/register', methods=['GET'])
@@ -149,7 +149,7 @@ def update_preferences():
     return redirect('/')
 
 
-@app.route("/sms", methods=['GET', 'POST'])
+@app.route('/sms', methods=['GET', 'POST'])
 def incoming_sms():
     """Gets user's responses to app's texts."""
 
@@ -186,44 +186,28 @@ def incoming_sms():
     db.session.commit()
 
 
-################################################################################
+@app.route('/pie-chart.json')
+def calculate_mw_percentage():
+    """Return percentage of the time a user mindwanders as JSON."""
+
+    return jsonify(pie_data)
+
+
+@app.route('/mw_graph_data.json')
+def plot_mw_happiness():
+    """Return plot points for happiness while mindwandering graph as JSON."""
+
+    return jsonify(mw_graph_data)
+
+
+@app.route('/not_mw_graph_data.json')
+def plot_not_mw_happiness():
+    """Return plot points for happiness while not mindwandering graph as JSON."""
+
+    return jsonify(not_mw_graph_data)
 
 
 if __name__ == "__main__":
     app.debug = True
-
     connect_to_db(app)
-
-    # Use the DebugToolbar
-    # DebugToolbarExtension(app)
     app.run(host="0.0.0.0")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
