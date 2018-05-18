@@ -7,9 +7,280 @@
   <h3>{{ fname }}'s Portal</h3>
 
   <a href="/preferences">Preferences</a>
-  <a href="/account-info">Your Account</a>
-  <a href="/trends">Your Trends</a>
-  <br>
   <a href="/logout">Logout</a>
+
+  <style>
+
+    .arc text {
+      font: 20px sans-serif;
+      text-anchor: middle;
+    }
+
+    .arc path {
+      stroke: #fff;
+    }
+
+    .bar {
+      fill: #C8A2C8;
+    }
+
+    .bar:hover {
+      fill: #D8BFD8;
+    }
+
+    .axis--x path {
+      display: none;
+    }
+
+  </style>
+
+  <svg width="960" height="500"></svg>
+  <svg width="500" height="500" id=svg1></svg>
+  <svg width="500" height="500" id=svg2></svg>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <script>
+////////////////////////////////mw pie chart////////////////////////////////////
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    radius = Math.min(width, height) / 2,
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
+
+var pie = d3.pie()
+    .sort(null)
+    .value(function(d) { return d.occurrence; });
+
+var path = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var label = d3.arc()
+    .outerRadius(radius - 120)
+    .innerRadius(radius - 120);
+
+var data = [
+            {
+              mw: 'mindwandering',
+              occurrence: 50
+            },
+
+            {
+              mw: 'not wandering',
+              occurrence: 62
+            }
+           ];
+
+
+var arc = g.selectAll(".arc")
+  .data(pie(data))
+  .enter().append("g")
+  .attr("class", "arc");
+
+arc.append("path")
+  .attr("d", path)
+  .attr("fill", function(d) { return color(d.data.mw); });
+
+arc.append("text")
+  .attr("transform", function(d) { 
+    return "translate(" + label.centroid(d) + ")"; 
+  })
+  .attr("dy", "0.40em") // y axis
+  .attr("y", "10")
+  .attr("x", "5")
+  .attr("fill", "white")
+  .text(function(d) { return d.data.mw; });
+
+////////////////////////////////mw bar chart////////////////////////////////////
+
+var svg1 = d3.select("#svg1"),
+    margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = +svg1.attr("width") - margin.left - margin.right,
+    height = +svg1.attr("height") - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+var g = svg1.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var data1 = [
+            {
+              letter: '1',
+              frequency: 0.0005
+            },
+
+            {
+              letter: '2',
+              frequency: 0.0005
+            },
+
+            {
+              letter: '3',
+              frequency: 0.04
+            },
+
+            {
+              letter: '4',
+              frequency: 0.04
+            },
+
+            {
+              letter: '5',
+              frequency: 0.16
+            },
+            
+            {
+              letter: '6',
+              frequency: 0.42
+            },
+
+            {
+              letter: '7',
+              frequency: 0.26
+            },
+
+            {
+              letter: '8',
+              frequency: 0.06
+            },
+
+            {
+              letter: '9',
+              frequency: 0.02
+            },
+
+            {
+              letter: '10',
+              frequency: 0.0005
+            }
+           ];
+
+  x.domain(data1.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data1, function(d) { return d.frequency; })]);
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y).ticks(10, "%"))
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("Frequency");
+
+  g.selectAll(".bar")
+    .data(data1)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.frequency); });
+
+/////////////////////////////not mw bar chart///////////////////////////////////
+
+var svg2 = d3.select("#svg2"),
+    margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = +svg2.attr("width") - margin.left - margin.right,
+    height = +svg2.attr("height") - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+var g = svg2.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var data2 = [
+            {
+              letter: '1',
+              frequency: 0.0005
+            },
+
+            {
+              letter: '2',
+              frequency: 0.016
+            },
+
+            {
+              letter: '3',
+              frequency: 0.0005
+            },
+
+            {
+              letter: '4',
+              frequency: 0.016
+            },
+
+            {
+              letter: '5',
+              frequency: 0.096
+            },
+            
+            {
+              letter: '6',
+              frequency: 0.258
+            },
+
+            {
+              letter: '7',
+              frequency: 0.290
+            },
+
+            {
+              letter: '8',
+              frequency: 0.226
+            },
+
+            {
+              letter: '9',
+              frequency: 0.080
+            },
+
+            {
+              letter: '10',
+              frequency: 0.016
+            }
+           ];
+
+  x.domain(data2.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data2, function(d) { return d.frequency; })]);
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y).ticks(10, "%"))
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("Frequency");
+
+  g.selectAll(".bar")
+    .data(data2)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.frequency); });
+
+  </script>
+  
+
 
 {% endblock %}
