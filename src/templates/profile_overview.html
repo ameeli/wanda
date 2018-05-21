@@ -34,13 +34,14 @@
 
   </style>
 
-  <svg width="960" height="500"></svg>
+  <svg width="560" height="500" id=svg></svg>
   <svg width="500" height="500" id=svg1></svg>
   <svg width="500" height="500" id=svg2></svg>
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <script>
+
 ////////////////////////////////mw pie chart////////////////////////////////////
 
 var svg = d3.select("svg"),
@@ -63,38 +64,32 @@ var label = d3.arc()
     .outerRadius(radius - 120)
     .innerRadius(radius - 120);
 
-var data = [
-            {
-              mw: 'mindwandering',
-              occurrence: 50
-            },
+function createPieChart(data) {    
+  var arc = g.selectAll(".arc")
+    .data(pie(data))
+    .enter().append("g")
+    .attr("class", "arc");
 
-            {
-              mw: 'not wandering',
-              occurrence: 62
-            }
-           ];
+  arc.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.mw); });
 
+  arc.append("text")
+    .attr("transform", function(d) { 
+      return "translate(" + label.centroid(d) + ")"; 
+    })
+    .attr("dy", "0.40em") // y axis
+    .attr("y", "10")
+    .attr("x", "5")
+    .attr("fill", "white")
+    .text(function(d) { return d.data.mw; });
+}
 
-var arc = g.selectAll(".arc")
-  .data(pie(data))
-  .enter().append("g")
-  .attr("class", "arc");
+function getPieData() {
+  $.get('/pie-chart.json', createPieChart);
+}
 
-arc.append("path")
-  .attr("d", path)
-  .attr("fill", function(d) { return color(d.data.mw); });
-
-arc.append("text")
-  .attr("transform", function(d) { 
-    return "translate(" + label.centroid(d) + ")"; 
-  })
-  .attr("dy", "0.40em") // y axis
-  .attr("y", "10")
-  .attr("x", "5")
-  .attr("fill", "white")
-  .text(function(d) { return d.data.mw; });
-
+getPieData();
 ////////////////////////////////mw bar chart////////////////////////////////////
 
 var svg1 = d3.select("#svg1"),
@@ -108,60 +103,9 @@ var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 var g = svg1.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var data1 = [
-            {
-              letter: '1',
-              frequency: 0.0005
-            },
-
-            {
-              letter: '2',
-              frequency: 0.0005
-            },
-
-            {
-              letter: '3',
-              frequency: 0.04
-            },
-
-            {
-              letter: '4',
-              frequency: 0.04
-            },
-
-            {
-              letter: '5',
-              frequency: 0.16
-            },
-            
-            {
-              letter: '6',
-              frequency: 0.42
-            },
-
-            {
-              letter: '7',
-              frequency: 0.26
-            },
-
-            {
-              letter: '8',
-              frequency: 0.06
-            },
-
-            {
-              letter: '9',
-              frequency: 0.02
-            },
-
-            {
-              letter: '10',
-              frequency: 0.0005
-            }
-           ];
-
-  x.domain(data1.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data1, function(d) { return d.frequency; })]);
+function createMwGraph(data) {
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
   g.append("g")
       .attr("class", "axis axis--x")
@@ -179,13 +123,20 @@ var data1 = [
       .text("Frequency");
 
   g.selectAll(".bar")
-    .data(data1)
+    .data(data)
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.letter); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.frequency); });
+}
+
+function getMwData() {
+  $.get('/mw_graph_data.json', createMwGraph);
+}
+
+getMwData();
 
 /////////////////////////////not mw bar chart///////////////////////////////////
 
@@ -200,60 +151,9 @@ var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
 var g = svg2.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var data2 = [
-            {
-              letter: '1',
-              frequency: 0.0005
-            },
-
-            {
-              letter: '2',
-              frequency: 0.016
-            },
-
-            {
-              letter: '3',
-              frequency: 0.0005
-            },
-
-            {
-              letter: '4',
-              frequency: 0.016
-            },
-
-            {
-              letter: '5',
-              frequency: 0.096
-            },
-            
-            {
-              letter: '6',
-              frequency: 0.258
-            },
-
-            {
-              letter: '7',
-              frequency: 0.290
-            },
-
-            {
-              letter: '8',
-              frequency: 0.226
-            },
-
-            {
-              letter: '9',
-              frequency: 0.080
-            },
-
-            {
-              letter: '10',
-              frequency: 0.016
-            }
-           ];
-
-  x.domain(data2.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data2, function(d) { return d.frequency; })]);
+function createNotMwChart(data) {
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
   g.append("g")
       .attr("class", "axis axis--x")
@@ -271,13 +171,20 @@ var data2 = [
       .text("Frequency");
 
   g.selectAll(".bar")
-    .data(data2)
+    .data(data)
     .enter().append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.letter); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.frequency); });
+}
+
+function getNotMwData() {
+  $.get('/not_mw_graph_data.json', createNotMwChart);
+}
+
+getNotMwData();
 
   </script>
   
