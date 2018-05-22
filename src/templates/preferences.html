@@ -4,7 +4,7 @@
 
 {% block content %}
 
-  <h3>{{ fname }}'s Preferences</h3>
+  <h3>Edit Preferences</h3>
 
     <form action="/preferences" method="POST">
         <h5>When would you like to receive Wanda's texts?</h5>
@@ -57,6 +57,10 @@
   <script>
     let daysOfWeek = document.querySelector('#day_of_week').value
   </script>
+
+  <div>
+    <a href="/" id="link">Back to home</a>
+  </div>
 
 
 {% endblock %}
