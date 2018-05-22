@@ -35,12 +35,12 @@ def get_pie_data(responses):
 
 mw_graph_data = [{
                   'letter': '1',
-                  'frequency': 0.0005
+                  'frequency': 0.0
                  },
 
                  {
                   'letter': '2',
-                  'frequency': 0.0005
+                  'frequency': 0.0
                  },
 
                  {
@@ -80,12 +80,12 @@ mw_graph_data = [{
 
                  {
                   'letter': '10',
-                  'frequency': 0.0005
+                  'frequency': 0.0
                  }]
 
 not_mw_graph_data = [{
                   'letter': '1',
-                  'frequency': 0.0005
+                  'frequency': 0.0
                  },
 
                  {
@@ -95,7 +95,7 @@ not_mw_graph_data = [{
 
                  {
                   'letter': '3',
-                  'frequency': 0.0005
+                  'frequency': 0.0
                  },
 
                  {
