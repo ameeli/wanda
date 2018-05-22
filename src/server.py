@@ -5,7 +5,7 @@ from send_texts import send_welcome_text
 from datetime import datetime
 import pytz
 from sqlalchemy import func
-from chart_data import pie_data, mw_graph_data, not_mw_graph_data
+from chart_data import get_all_responses, get_pie_data, mw_graph_data, not_mw_graph_data
 
 app = Flask(__name__)
 app.secret_key = 'KEY'
@@ -24,8 +24,7 @@ def display_homepage():
         # query into db and find mw_occurrences and not_mw_occurrences
 
         return render_template("profile_overview.html",
-                                fname=session['fname'],
-                                pie_data=jsonify(pie_data))
+                                fname=session['fname'])
 
 
 @app.route('/register', methods=['GET'])
@@ -66,7 +65,7 @@ def add_user():
     # send confirmation text to user's mobile using Twilio
     send_welcome_text(mobile, user.id)
 
-    return redirect('/preferences') # edit redirect to profile page
+    return render_template('/edit_preferences') # edit redirect to profile page
 
 
 @app.route('/login', methods=['GET'])
@@ -189,6 +188,9 @@ def incoming_sms():
 @app.route('/pie-chart.json')
 def calculate_mw_percentage():
     """Return percentage of the time a user mindwanders as JSON."""
+
+    responses = get_all_responses()
+    pie_data = get_pie_data(responses)
 
     return jsonify(pie_data)
 
