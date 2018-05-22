@@ -4,13 +4,27 @@
 
 {% block content %}
 
-  <h3>{{ fname }}'s Portal</h3>
-
-  <a href="/preferences">Preferences</a>
-  <a href="/logout">Logout</a>
-
+  <div id="navbar">
+    <div id="title">{{ fname }}'s Portal</div>
+    <div id="link">
+      <a href="/preferences">Preferences</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+ 
   <style>
-
+    #navbar {
+      width: 100%;
+      display: flex;
+      align-content: center;
+      justify-content: space-between; 
+    }
+    #title {
+      font-size: 20px;
+    }
+    #links {
+      display: flex;
+    }
     .arc text {
       font: 20px sans-serif;
       text-anchor: middle;
@@ -33,46 +47,57 @@
     }
 
   </style>
+    <div>Percentage</div>
+    <svg width="560" height="500" id=svg></svg>
 
-  <svg width="560" height="500" id=svg></svg>
-  <svg width="500" height="500" id=svg1></svg>
-  <svg width="500" height="500" id=svg2></svg>
+      <div>MW</div>
+      <svg width="500" height="500" id=svg1></svg>
+      <div>notMW</div>
+      <svg width="500" height="500" id=svg2></svg>
+
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
-
   <script>
 
-////////////////////////////////mw pie chart////////////////////////////////////
-
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
-
-var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.occurrence; });
-
-var path = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
-
-var label = d3.arc()
-    .outerRadius(radius - 120)
-    .innerRadius(radius - 120);
-
 function createPieChart(data) {    
+  var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      radius = Math.min(width, height) / 2,
+      g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
+
+  var pie = d3.pie()
+      .sort(null)
+      .value(function(d) { return d.occurrence; });
+
+  var path = d3.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(0);
+
+  var label = d3.arc()
+      .outerRadius(radius - 120)
+      .innerRadius(radius - 120);
+
   var arc = g.selectAll(".arc")
     .data(pie(data))
     .enter().append("g")
     .attr("class", "arc");
 
+  // svg.append("text")
+  //   .attr("x", (width / 2))             
+  //   .attr("y", (width / 2))
+  //   .attr("text-anchor", "middle")  
+  //   .style("font-size", "16px") 
+  //   .style("text-decoration", "underline")  
+  //   .text("Value vs Date Graph");
+
+
   arc.append("path")
     .attr("d", path)
     .attr("fill", function(d) { return color(d.data.mw); });
+
 
   arc.append("text")
     .attr("transform", function(d) { 
@@ -90,20 +115,20 @@ function getPieData() {
 }
 
 getPieData();
-////////////////////////////////mw bar chart////////////////////////////////////
-
-var svg1 = d3.select("#svg1"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg1.attr("width") - margin.left - margin.right,
-    height = +svg1.attr("height") - margin.top - margin.bottom;
-
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-    y = d3.scaleLinear().rangeRound([height, 0]);
-
-var g = svg1.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function createMwGraph(data) {
+
+  var svg1 = d3.select("#svg1"),
+      margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = +svg1.attr("width") - margin.left - margin.right,
+      height = +svg1.attr("height") - margin.top - margin.bottom,
+
+  x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+  y = d3.scaleLinear().rangeRound([height, 0]);
+
+  var g = svg1.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
@@ -138,20 +163,19 @@ function getMwData() {
 
 getMwData();
 
-/////////////////////////////not mw bar chart///////////////////////////////////
-
-var svg2 = d3.select("#svg2"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg2.attr("width") - margin.left - margin.right,
-    height = +svg2.attr("height") - margin.top - margin.bottom;
-
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-    y = d3.scaleLinear().rangeRound([height, 0]);
-
-var g = svg2.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function createNotMwChart(data) {
+  var svg2 = d3.select("#svg2"),
+      margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = +svg2.attr("width") - margin.left - margin.right,
+      height = +svg2.attr("height") - margin.top - margin.bottom;
+
+  var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+      y = d3.scaleLinear().rangeRound([height, 0]);
+
+  var g = svg2.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
