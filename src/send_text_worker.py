@@ -1,4 +1,4 @@
-from model import connect_to_db, db, User, TimeWindow, AppText
+from model import connect_to_db, db, User, TimeWindow, Text
 from flask import Flask
 from datetime import datetime
 from sqlalchemy import func
@@ -34,12 +34,12 @@ def get_seconds_since_last_text(user_id):
     """Takes user_id and returns seconds since user's last received text."""
 
     last_text_time = db.session.query(
-        func.max(AppText.sent_time)
+        func.max(Text.sent_time)
     ).filter(
-        user_id==user_id
-    ).first()
+        Text.user_id==user_id
+    ).scalar()
 
-    timedelta = datetime.now(tz=pacific) - last_text_time[0].replace(tzinfo=pacific)
+    timedelta = datetime.now(tz=pacific) - last_text_time.replace(tzinfo=pacific)
     # datetime.timedelta(days, seconds, microseconds)
 
     seconds_since_last_text = (timedelta.days * 86400) + timedelta.seconds
