@@ -1,0 +1,35 @@
+#navbar {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: space-between; 
+}
+
+#title {
+  font-size: 20px;
+}
+
+#links {
+  display: flex;
+}
+
+.arc text {
+  font: 20px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+.bar {
+  fill: #C8A2C8;
+}
+
+.bar:hover {
+  fill: #D8BFD8;
+}
+
+.axis--x path {
+  display: none;
+}
