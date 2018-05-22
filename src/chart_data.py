@@ -1,12 +1,37 @@
-pie_data = [{
-             'mw': 'mindwandering',
-             'occurrence': 50
-            },
+from flask import Flask
+from model import connect_to_db, db, User, TimeWindow, Text, Response
 
-            {
-             'mw': 'not wandering',
-             'occurrence': 62
-            }]
+def get_all_responses():
+    """Queries db to get response column of all responses."""
+
+    response = db.session.query(Response.response).all()
+
+    return response
+
+
+def get_pie_data(responses):
+    """Takes all responses and formats into dictionary."""
+
+    wandering_counter = 0
+    not_wandering_counter = 0
+
+    for response in responses:
+        if int(response[0][0]) == 1:
+            wandering_counter +=1
+        else:
+            not_wandering_counter += 1
+
+    pie_data = [{
+                 'mw': 'Wandering',
+                 'occurrence': wandering_counter
+                },
+                {
+                 'mw': 'Not Wandering',
+                 'occurrence': not_wandering_counter
+                }]
+    
+    return pie_data
+
 
 mw_graph_data = [{
                   'letter': '1',
@@ -107,3 +132,8 @@ not_mw_graph_data = [{
                   'letter': '10',
                   'frequency': 0.016
                  }]
+
+if __name__ == '__main__':
+    app = Flask(__name__)
+    connect_to_db(app)
+
