@@ -1,11 +1,12 @@
 from flask import Flask, flash, session, jsonify
 from flask import request, render_template, redirect
-from model import connect_to_db, db, User, TimeWindow, Text, Response
+from model import connect_to_db, db, User, Text
 from send_texts import send_welcome_text
 from datetime import datetime
 import pytz
 from sqlalchemy import func
 from chart_data import get_all_responses, get_pie_data, mw_graph_data, not_mw_graph_data
+from add_to_db import add_to_users, add_to_time_windows, add_to_responses
 
 app = Flask(__name__)
 app.secret_key = 'KEY'
@@ -45,25 +46,16 @@ def add_user():
     password = request.form['password']
     mobile = request.form['mobile']
 
-    # instantiate an instance of User
-    user = User(fname=fname, 
-                lname=lname, 
-                email=email, 
-                password=password, 
-                mobile=mobile)
-
-    # add user to db
-    db.session.add(user)
-    db.session.commit()
+    user_id = add_to_users(fname, lname, email, password, mobile)
 
     flash('Wanda welcomes you! Please set up your preferences.')
 
     # add user's first name and user_id to session
     session['fname'] = fname
-    session['user_id'] = user.id
+    session['user_id'] = user_id
     
     # send confirmation text to user's mobile using Twilio
-    send_welcome_text(mobile, user.id)
+    send_welcome_text(mobile, user_id)
 
     return render_template('/edit_preferences') # edit redirect to profile page
 
@@ -133,15 +125,7 @@ def update_preferences():
 
     # for every item in time_window, instantiate an instance of TimeWindow
     for window in time_windows:
-        time_window = TimeWindow(start_time=window[0],
-                                 end_time=window[1],
-                                 day_of_week=window[2],
-                                 user_id=session['user_id'])
-
-        # add time_window to database
-        db.session.add(time_window)
-
-    db.session.commit()
+        add_to_time_windows(window[0], window[1], window[2], session['user_id'])
 
     flash('Your time window preferences have been successfully updated!')
 
@@ -176,13 +160,7 @@ def incoming_sms():
 
 
     pacific = pytz.timezone('US/Pacific')
-    response = Response(response=body,
-                        timestamp=datetime.now(tz=pacific).replace(tzinfo=None),
-                        user_id=user_id,
-                        text_id=last_text_id)
-
-    db.session.add(response)
-    db.session.commit()
+    add_to_responses(body, datetime.now(tz=pacific).replace(tzinfo=None), user_id, last_text_id)
 
 
 @app.route('/pie-chart.json')

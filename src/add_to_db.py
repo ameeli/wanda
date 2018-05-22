@@ -1,6 +1,5 @@
 from model import connect_to_db, db, User, TimeWindow, Text, Response
-from server import app
-
+from flask import Flask
 
 def add_to_users(fname, lname, email, password, mobile):
     """Adds new user to users table and returns user id."""
@@ -43,4 +42,5 @@ def add_to_responses(response, timestamp, user_id, text_id):
 
 
 if __name__ == "__main__":
+    app = Flask(__name__)
     connect_to_db(app)

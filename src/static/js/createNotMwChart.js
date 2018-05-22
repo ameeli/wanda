@@ -1,7 +1,7 @@
 // Script for creating not mw chart, used by profile_overview.html
 function createNotMwChart(data) {
   var svg2 = d3.select("#svg2"),
-      margin = {top: 20, right: 20, bottom: 70, left: 60},
+      margin = {top: 70, right: 20, bottom: 70, left: 60},
       width = +svg2.attr("width") - margin.left - margin.right,
       height = +svg2.attr("height") - margin.top - margin.bottom;
 
@@ -14,6 +14,14 @@ function createNotMwChart(data) {
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
+  g.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "none")  
+        .text("Happiness While Focusing"); 
+
   // Add the x Axis
   g.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -23,7 +31,7 @@ function createNotMwChart(data) {
   g.append("text")             
       .attr("transform",
             "translate(" + (width/2) + " ," + 
-                           (height + margin.top + 20) + ")")
+                           (height + margin.top - 30) + ")")
       .style("text-anchor", "middle")
       .text("Happiness");
 
