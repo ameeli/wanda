@@ -26,7 +26,7 @@ def get_pie_data(responses):
                  'occurrence': wandering_counter
                 },
                 {
-                 'mw': 'Not Wandering',
+                 'mw': 'Focusing',
                  'occurrence': not_wandering_counter
                 }]
     
