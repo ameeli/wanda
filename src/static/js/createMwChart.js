@@ -1,4 +1,5 @@
 // Script for creating mw chart, used by profile_overview.html
+
 function createMwGraph(data) {
 
   var svg1 = d3.select("#svg1"),

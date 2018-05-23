@@ -1,4 +1,5 @@
 // Script for creating not mw chart, used by profile_overview.html
+
 function createNotMwChart(data) {
   var svg2 = d3.select("#svg2"),
       margin = {top: 70, right: 20, bottom: 70, left: 60},
