@@ -5,14 +5,17 @@ class Chart extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { isHovered: false} 
-        this.setHovered = this.setHovered.bind(this);
+        this.state = { 
+          isHovered: false,
+          chartData: ""} 
+        this.setHovered = this.setHovered.bind(this)
+        this.renderPieChart = this.renderPieChart.bind(this);
     }
 
     componentDidMount() {
         fetch('/pie-chart.json')
             .then((response) => response.json())
-            .then((data) => this.renderPieChart(data));
+            .then((data) => this.setState( { chartData: data });
 
         // console.log('pieChartData: ', pieChartData);
 
@@ -25,7 +28,6 @@ class Chart extends React.Component {
     }
 
     renderPieChart(data) {
-        debugger;
       var svg = d3.select("#svg"),
           width = 280,
           height = 500,
@@ -72,7 +74,9 @@ class Chart extends React.Component {
 
     render() {
         return (
-            <svg width="560" height="500" className="svg"/>
+            // have to render a DOM element here, so the issue is that my chart 
+            // is not a DOM element and React won't like that. look into d3 react
+            // libraries that may translate graph into DOM
         );
     }
 }
