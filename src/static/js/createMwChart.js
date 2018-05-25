@@ -1,7 +1,7 @@
 // Script for creating mw chart, used by profile_overview.html
+d3.json("/mw_graph_data.json", createMwChart);
 
-function createMwGraph(data) {
-
+function createMwChart(data) {
   var svg1 = d3.select("#svg1"),
       margin = {top: 70, right: 20, bottom: 70, left: 60},
       width = +svg1.attr("width") - margin.left - margin.right,
@@ -70,9 +70,3 @@ function createMwGraph(data) {
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.frequency); });
 }
-
-function getMwData() {
-  $.get('/mw_graph_data.json', createMwGraph);
-}
-
-getMwData();

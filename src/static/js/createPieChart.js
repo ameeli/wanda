@@ -1,4 +1,5 @@
 // Script for creating pie chart, used by profile_overview.html
+d3.json("/pie-chart.json", createPieChart);
 
 function createPieChart(data) {    
   // create svg to take dimensions specified in profile_overview
@@ -18,17 +19,23 @@ function createPieChart(data) {
   // radius of entire circle
   var path = d3.arc()
       .outerRadius(radius - 10)
-      .innerRadius(0);
+      .innerRadius(radius - 130);
 
   // focusing and wandering labels placement
   var label = d3.arc()
-      .outerRadius(radius - 120)
-      .innerRadius(radius - 120);
+      .outerRadius(radius - 75)
+      .innerRadius(radius - 75);
+
+  var infoLabel = d3.arc()
+    .outerRadius(radius - 100)
+    .innerRadius(-80)
 
   var arc = g.selectAll(".arc")
     .data(pie(data))
     .enter().append("g")
-    .attr("class", "arc");
+    .attr("class", "arc")
+    .on("mouseover", handleMouseOver)
+    .on("mouseout", handleMouseOut);
 
   arc.append("path")
     .attr("d", path)
@@ -39,17 +46,33 @@ function createPieChart(data) {
     .attr("transform", function(d) { 
       return "translate(" + label.centroid(d) + ")"; 
     })
-    .attr("dy", "0.40em") // y axis
     .attr("y", "10")
     .attr("x", "5")
     .attr("fill", "white")
     .text(function(d) { return d.data.mw; });
+
+  function handleMouseOver() {
+    arc.append("text")
+      .style("font", "15px sans-serif")
+      .attr("fill", "#8a89a6")
+      .attr("id", "info")
+      .text("Focusing: 62 reports")
+      
+    arc.append("text")
+      .attr("transform", "translate(0, 20)" )
+      .attr("fill", "#98abc5")
+      .style("font", "15px sans-serif")
+      .attr("id", "info")
+      .text("Wandering: 50 reports");
+    // arc.append("text")
+    //   .attr("id", "info")
+    //   .text(function(d) { 
+    //     console.log(d.data.mw);
+    //     return d.data.mw; });
+    //function(d) { return d.data.mw; }
+  }
+
+  function handleMouseOut() {
+    svg.selectAll("#info").remove();
+  }
 }
-
-function getPieData() {
-  $.get('/pie-chart.json', createPieChart);
-}
-
-getPieData();
-
-// when mouse is over arc, reveal percentage breakdown plus num of occurrences

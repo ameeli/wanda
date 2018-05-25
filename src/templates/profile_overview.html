@@ -11,18 +11,28 @@
     <a href="/logout">Logout</a>
   </div>
 </div>
- 
-<div id="chart-title"></div>
-<svg width="560" height="500" id=svg></svg>
 
-<div id="chart-title"></div>
-<svg width="500" height="500" id=svg1></svg>
+<form action="">
+  Period:
+    <select name="period">
+      <option value="watermelon">Watermelon</option>
+      <option value="honeydew">Honeydew</option>
+      <option value="canteloupe">Canteloupe</option>
+    </select>
+</form>
 
-<div id="chart-title"></div>
-<svg width="500" height="500" id=svg2></svg>
+<svg width="450" height="450" id=svg></svg>
+<svg width="500" height="500" id="svg1"></svg>
+<svg width="500" height="500" id="svg2"></svg>
 
 <script src="/static/js/createPieChart.js"></script>
 <script src="/static/js/createMwChart.js"></script>
 <script src="/static/js/createNotMwChart.js"></script>
+
+<!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="http://unpkg.com/babel-standalone"></script> -->
+<!-- <script src="/static/jsx/charts.jsx" type="text/jsx"></script>
+ -->
 
 {% endblock %}

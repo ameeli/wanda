@@ -1,4 +1,5 @@
 // Script for creating not mw chart, used by profile_overview.html
+d3.json("/not_mw_graph_data.json", createNotMwChart);
 
 function createNotMwChart(data) {
   var svg2 = d3.select("#svg2"),
@@ -69,9 +70,3 @@ function createNotMwChart(data) {
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.frequency); });
 }
-
-function getNotMwData() {
-  $.get('/not_mw_graph_data.json', createNotMwChart);
-}
-
-getNotMwData();
