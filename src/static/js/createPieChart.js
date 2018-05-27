@@ -23,8 +23,8 @@ function createPieChart(data) {
 
   // focusing and wandering labels placement
   var label = d3.arc()
-      .outerRadius(radius - 75)
-      .innerRadius(radius - 75);
+    .outerRadius(radius - 75)
+    .innerRadius(radius - 75);
 
   var infoLabel = d3.arc()
     .outerRadius(radius - 100)
@@ -64,12 +64,6 @@ function createPieChart(data) {
       .style("font", "15px sans-serif")
       .attr("id", "info")
       .text("Wandering: 50 reports");
-    // arc.append("text")
-    //   .attr("id", "info")
-    //   .text(function(d) { 
-    //     console.log(d.data.mw);
-    //     return d.data.mw; });
-    //function(d) { return d.data.mw; }
   }
 
   function handleMouseOut() {
