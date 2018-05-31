@@ -3,82 +3,100 @@
 
 class Chart extends React.Component { 
 
-    constructor(props) {
-        super(props);
-        this.state = { 
-          isHovered: false,
-          chartData: ""} 
-        this.setHovered = this.setHovered.bind(this)
-        this.renderPieChart = this.renderPieChart.bind(this);
-    }
+  constructor(props) {
+      super(props);
+      this.state = { 
+        isHovered: false,
+        chartData: ""} 
+      this.setHovered = this.setHovered.bind(this)
+      this.renderPieChart = this.renderPieChart.bind(this);
+  }
 
-    componentDidMount() {
-        fetch('/pie-chart.json')
-            .then((response) => response.json())
-            .then((data) => this.setState( { chartData: data });
+  componentDidMount() {
+      fetch('/pie-chart.json')
+          .then((response) => response.json())
+          .then((data) => this.setState( { chartData: data }));
+  }
 
-        // console.log('pieChartData: ', pieChartData);
+  setHovered() {
+      this.setState({ isHovered: true });
+  }
 
-        // this.setState({ data: pieChartData });
-    }
+  renderPieChart() {
+    var data = this.state.chartData;
 
-    setHovered() {
-        this.setState({ isHovered: true});
+    var svg = d3.select("#svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        radius = Math.min(width, height) / 2,
+        g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    }
+    var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
 
-    renderPieChart(data) {
-      var svg = d3.select("#svg"),
-          width = 280,
-          height = 500,
-          radius = Math.min(width, height) / 2,
-          g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    // points to where pie should get % data
+    var pie = d3.pie()
+        .sort(null)
+        .value(function(d) { return d.occurrence; });
 
-      var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
+    // radius of entire circle
+    var path = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(radius - 130);
 
-      // points to where pie should get % data
-      var pie = d3.pie()
-          .sort(null)
-          .value(function(d) { return d.occurrence; });
+    // focusing and wandering labels placement
+    var label = d3.arc()
+      .outerRadius(radius - 75)
+      .innerRadius(radius - 75);
 
-      // radius of entire circle
-      var path = d3.arc()
-          .outerRadius(radius - 10)
-          .innerRadius(0);
+    var infoLabel = d3.arc()
+      .outerRadius(radius - 100)
+      .innerRadius(-80)
 
-      // focusing and wandering labels placement
-      var label = d3.arc()
-          .outerRadius(radius - 120)
-          .innerRadius(radius - 120);
+    var arc = g.selectAll(".arc")
+      .data(pie(data))
+      .enter().append("g")
+      .attr("class", "arc")
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut);
 
-      var arc = g.selectAll(".arc")
-        .data(pie(data))
-        .enter().append("g")
-        .attr("class", "arc")
+    arc.append("path")
+      .attr("d", path)
+      .attr("fill", function(d) { return color(d.data.mw); });
 
-      arc.append("path")
-        .attr("d", path)
-        .attr("fill", function(d) { return color(d.data.mw); });
+    // labeling each half with text
+    arc.append("text")
+      .attr("transform", function(d) { 
+        return "translate(" + label.centroid(d) + ")"; 
+      })
+      .attr("y", "10")
+      .attr("x", "5")
+      .attr("fill", "white")
+      .text(function(d) { return d.data.mw; });
 
-      // labeling each half with text
+    function handleMouseOver() {
       arc.append("text")
-        .attr("transform", function(d) { 
-          return "translate(" + label.centroid(d) + ")"; 
-        })
-        .attr("dy", "0.40em") // y axis
-        .attr("y", "10")
-        .attr("x", "5")
-        .attr("fill", "white")
-        .text(function(d) { return d.data.mw; });
+        .style("font", "15px sans-serif")
+        .attr("fill", "#8a89a6")
+        .attr("id", "info")
+        .text("Focusing: 62 reports")
+        
+      arc.append("text")
+        .attr("transform", "translate(0, 20)" )
+        .attr("fill", "#98abc5")
+        .style("font", "15px sans-serif")
+        .attr("id", "info")
+        .text("Wandering: 50 reports");
     }
 
-    render() {
-        return (
-            // have to render a DOM element here, so the issue is that my chart 
-            // is not a DOM element and React won't like that. look into d3 react
-            // libraries that may translate graph into DOM
-        );
+    function handleMouseOut() {
+      svg.selectAll("#info").remove();
     }
+  }
+
+  render() {
+    this.renderPieChart();
+    return (null);
+  }
 }
 
 ReactDOM.render(

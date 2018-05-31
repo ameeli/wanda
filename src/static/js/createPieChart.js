@@ -3,7 +3,7 @@ d3.json("/pie-chart.json", createPieChart);
 
 function createPieChart(data) {    
   // create svg to take dimensions specified in profile_overview
-  var svg = d3.select("svg"),
+  var svg = d3.select("#svg"),
       width = +svg.attr("width"),
       height = +svg.attr("height"),
       radius = Math.min(width, height) / 2,

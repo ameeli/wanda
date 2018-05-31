@@ -22,8 +22,16 @@
 </form>
 
 <div id="pie-chart">
-  <svg width="450" height="450" id=svg></svg>
+  <svg width="450" height="450" id="root"></svg>
 </div>
+
+<!-- loading pie with React
+svg width="450" height="450" id="svg"></svg>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="http://unpkg.com/babel-standalone"></script>
+<script src="/static/jsx/charts.jsx" type="text/jsx"></script> -->
 
 <div id="graphs">
   <svg width="500" height="500" id="svg1"></svg>
@@ -33,11 +41,5 @@
 <script src="/static/js/createPieChart.js"></script>
 <script src="/static/js/createMwChart.js"></script>
 <script src="/static/js/createNotMwChart.js"></script>
-
-<!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<script src="http://unpkg.com/babel-standalone"></script> -->
-<!-- <script src="/static/jsx/charts.jsx" type="text/jsx"></script>
- -->
 
 {% endblock %}
