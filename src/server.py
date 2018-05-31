@@ -133,7 +133,7 @@ def incoming_sms():
 @app.route('/pie-chart.json')
 def calculate_mw_percentage():
     """Return percentage of the time a user mindwanders as JSON."""
-    responses = get_all_responses()
+    responses = get_all_responses(session['user_id'])
     pie_data = get_pie_data(responses)
     return jsonify(pie_data)
 
@@ -141,7 +141,7 @@ def calculate_mw_percentage():
 @app.route('/mw_graph_data.json')
 def plot_mw_happiness():
     """Return plot points for happiness while mindwandering graph as JSON."""
-    responses = get_all_responses()
+    responses = get_all_responses(session['user_id'])
     mw_graph_data = get_mw_graph_data(responses)
     return jsonify(mw_graph_data)
 
@@ -149,7 +149,7 @@ def plot_mw_happiness():
 @app.route('/not_mw_graph_data.json')
 def plot_not_mw_happiness():
     """Return plot points for happiness while not mindwandering graph as JSON."""
-    responses = get_all_responses()
+    responses = get_all_responses(session['user_id'])
     not_mw_graph_data = get_not_mw_graph_data(responses)
     return jsonify(not_mw_graph_data)
 
