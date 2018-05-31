@@ -4,22 +4,22 @@ d3.json("/pie-chart.json", createPieChart);
 function createPieChart(data) {    
   // create svg to take dimensions specified in profile_overview
   var svg = d3.select("#svg"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height"),
-      radius = Math.min(width, height) / 2,
-      g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    radius = Math.min(width, height) / 2,
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
   var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
 
   // points to where pie should get % data
   var pie = d3.pie()
-      .sort(null)
-      .value(function(d) { return d.occurrence; });
+    .sort(null)
+    .value(function(d) { return d.occurrence; });
 
   // radius of entire circle
   var path = d3.arc()
-      .outerRadius(radius - 10)
-      .innerRadius(radius - 130);
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 130);
 
   // focusing and wandering labels placement
   var label = d3.arc()
@@ -43,9 +43,7 @@ function createPieChart(data) {
 
   // labeling each half with text
   arc.append("text")
-    .attr("transform", function(d) { 
-      return "translate(" + label.centroid(d) + ")"; 
-    })
+    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
     .attr("y", "10")
     .attr("x", "5")
     .attr("fill", "white")
