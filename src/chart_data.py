@@ -1,9 +1,10 @@
 from flask import Flask
 from model import connect_to_db, db, Response
 
-def get_all_responses():
+def get_all_responses(user_id):
     """Queries db to get response column of all responses."""
-    responses = db.session.query(Response.response).all()
+    responses = db.session.query(Response.response).filter(
+        Response.user_id==user_id).all()
 
     return responses
 
@@ -42,8 +43,11 @@ def get_mw_graph_data(responses):
         happiness_frequency[i] = 0
 
     for response in responses:
+        mind_wandering_response = int(response[0][0])
         happiness_level = int(response[0][3])
-        happiness_frequency[happiness_level] += 1
+
+        if mind_wandering_response == 1:
+            happiness_frequency[happiness_level] += 1
 
     for key in happiness_frequency:
         formatted_data = {'happiness': key, 'frequency': happiness_frequency[key]}
@@ -62,8 +66,11 @@ def get_not_mw_graph_data(responses):
         happiness_frequency[i] = 0
 
     for response in responses:
+        mind_wandering_response = int(response[0][0])
         happiness_level = int(response[0][3])
-        happiness_frequency[happiness_level] += 1
+
+        if mind_wandering_response == 2:
+            happiness_frequency[happiness_level] += 1
 
     for key in happiness_frequency:
         formatted_data = {'happiness': key, 'frequency': happiness_frequency[key]}
