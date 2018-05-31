@@ -1,22 +1,21 @@
 from flask import Flask
-from model import connect_to_db, db, User, TimeWindow, Text, Response
+from model import connect_to_db, db, Response
 
 def get_all_responses():
     """Queries db to get response column of all responses."""
+    responses = db.session.query(Response.response).all()
 
-    response = db.session.query(Response.response).all()
-
-    return response
+    return responses
 
 
 def get_pie_data(responses):
     """Takes all responses and formats into dictionary."""
-
     wandering_counter = 0
     not_wandering_counter = 0
 
     for response in responses:
-        if int(response[0][0]) == 1:
+        mind_wandering_response = int(response[0][0])
+        if mind_wandering_response == 1:
             wandering_counter +=1
         else:
             not_wandering_counter += 1
@@ -33,105 +32,45 @@ def get_pie_data(responses):
     return pie_data
 
 
-mw_graph_data = [{
-                  'letter': '1',
-                  'frequency': 0.0
-                 },
+def get_mw_graph_data(responses):
+    """Takes responses and creates frequency counter for every happiness level
+    while mind wandering."""
+    happiness_frequency = {}
+    mw_graph_data = []
 
-                 {
-                  'letter': '2',
-                  'frequency': 0.0
-                 },
+    for i in range(1, 11):
+        happiness_frequency[i] = 0
 
-                 {
-                  'letter': '3',
-                  'frequency': 0.04
-                 },
+    for response in responses:
+        happiness_level = int(response[0][3])
+        happiness_frequency[happiness_level] += 1
 
-                 {
-                  'letter': '4',
-                  'frequency': 0.04
-                 },
+    for key in happiness_frequency:
+        formatted_data = {'happiness': key, 'frequency': happiness_frequency[key]}
+        mw_graph_data.append(formatted_data)
 
-                 {
-                  'letter': '5',
-                  'frequency': 0.16
-                 },
-                
-                 {
-                  'letter': '6',
-                  'frequency': 0.42
-                 },
+    return mw_graph_data
 
-                 {
-                  'letter': '7',
-                  'frequency': 0.26
-                 },
 
-                 {
-                  'letter': '8',
-                  'frequency': 0.06
-                 },
+def get_not_mw_graph_data(responses):
+    """Takes responses and creates frequency counter for every happiness level
+    while not mind wandering."""
+    happiness_frequency = {}
+    not_mw_graph_data = []
 
-                 {
-                  'letter': '9',
-                  'frequency': 0.02
-                 },
+    for i in range(1, 11):
+        happiness_frequency[i] = 0
 
-                 {
-                  'letter': '10',
-                  'frequency': 0.0
-                 }]
+    for response in responses:
+        happiness_level = int(response[0][3])
+        happiness_frequency[happiness_level] += 1
 
-not_mw_graph_data = [{
-                  'letter': '1',
-                  'frequency': 0.0
-                 },
+    for key in happiness_frequency:
+        formatted_data = {'happiness': key, 'frequency': happiness_frequency[key]}
+        not_mw_graph_data.append(formatted_data)
 
-                 {
-                  'letter': '2',
-                  'frequency': 0.016
-                 },
+    return not_mw_graph_data
 
-                 {
-                  'letter': '3',
-                  'frequency': 0.0
-                 },
-
-                 {
-                  'letter': '4',
-                  'frequency': 0.016
-                 },
-
-                 {
-                  'letter': '5',
-                  'frequency': 0.096
-                 },
-                
-                 {
-                  'letter': '6',
-                  'frequency': 0.258
-                 },
-
-                 {
-                  'letter': '7',
-                  'frequency': 0.290
-                 },
-
-                 {
-                  'letter': '8',
-                  'frequency': 0.226
-                 },
-
-                 {
-                  'letter': '9',
-                  'frequency': 0.080
-                 },
-
-                 {
-                  'letter': '10',
-                  'frequency': 0.016
-                 }]
 
 if __name__ == '__main__':
     app = Flask(__name__)

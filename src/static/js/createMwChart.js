@@ -13,7 +13,7 @@ function createMwChart(data) {
   var g = svg1.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  x.domain(data.map(function(d) { return d.letter; }));
+  x.domain(data.map(function(d) { return d.happiness; }));
   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
   g.append("text")
@@ -40,8 +40,8 @@ function createMwChart(data) {
   // text label for the y axis
   g.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
+      .attr("y", 5 - margin.left)
+      .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("Frequency");   
@@ -53,7 +53,7 @@ function createMwChart(data) {
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "%"))
+      .call(d3.axisLeft(y).ticks(10))
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
@@ -65,7 +65,7 @@ function createMwChart(data) {
     .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.letter); })
+      .attr("x", function(d) { return x(d.happiness); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.frequency); });

@@ -5,7 +5,7 @@ from send_texts import send_welcome_text
 from datetime import datetime
 import pytz
 from sqlalchemy import func
-from chart_data import get_all_responses, get_pie_data, mw_graph_data, not_mw_graph_data
+from chart_data import get_all_responses, get_pie_data, get_mw_graph_data, get_not_mw_graph_data
 from add_to_db import add_to_users, add_to_time_windows, add_to_responses
 
 app = Flask(__name__)
@@ -141,12 +141,16 @@ def calculate_mw_percentage():
 @app.route('/mw_graph_data.json')
 def plot_mw_happiness():
     """Return plot points for happiness while mindwandering graph as JSON."""
+    responses = get_all_responses()
+    mw_graph_data = get_mw_graph_data(responses)
     return jsonify(mw_graph_data)
 
 
 @app.route('/not_mw_graph_data.json')
 def plot_not_mw_happiness():
     """Return plot points for happiness while not mindwandering graph as JSON."""
+    responses = get_all_responses()
+    not_mw_graph_data = get_not_mw_graph_data(responses)
     return jsonify(not_mw_graph_data)
 
 
