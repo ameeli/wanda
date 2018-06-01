@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div id="navbar">
+<div id="top-navbar">
   <div id="title">{{ fname }}'s Portal</div>
   <div id="link">
     <a href="/preferences">Preferences</a>
@@ -12,27 +12,16 @@
   </div>
 </div>
 
-<form action="/time-interval">
-  Interval:
-    <select name="period">
-      <option value="Today">Today</option>
-      <option value="This Week">This Week</option>
-      <option value="This Month">This Month</option>
-      <option value="All Time">All Time</option>
-    </select>
-</form>
+<div id="intervals-buttons">
+  <button class="borderless-button" id="today">Today</button>
+  <button class="borderless-button" id="this-week">This Week</button>
+  <button class="borderless-button" id="this-month">This Month</button>
+  <button class="borderless-button" id="all-time">All Time</button>
+</div>
 
 <div id="pie-chart">
   <svg width="450" height="450" id="svg"></svg>
 </div>
-
-<!-- loading pie with React
-svg width="450" height="450" id="svg"></svg>
-<div id="root"></div>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<script src="http://unpkg.com/babel-standalone"></script>
-<script src="/static/jsx/charts.jsx" type="text/jsx"></script> -->
 
 <div id="graphs">
   <svg width="500" height="500" id="svg1"></svg>
@@ -43,4 +32,23 @@ svg width="450" height="450" id="svg"></svg>
 <script src="/static/js/createMwChart.js"></script>
 <script src="/static/js/createNotMwChart.js"></script>
 
+<script>
+  function passTimeInterval () {
+    // grabs time interval from button
+    // passes to server's 3 AJAX routes
+    // first figure out if I can have just 1 event listener for all buttons
+    // makes sure both sides have post requests
+  }
+
+  $("#today").on("click", passTimeInterval);
+</script>
+
 {% endblock %}
+
+<!-- loading pie with React
+svg width="450" height="450" id="svg"></svg>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="http://unpkg.com/babel-standalone"></script>
+<script src="/static/jsx/charts.jsx" type="text/jsx"></script> -->
