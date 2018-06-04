@@ -130,32 +130,44 @@ def incoming_sms():
     add_to_responses(text_body, datetime.now(tz=pacific).replace(tzinfo=None), user_id, last_text_id)
 
 
-@app.route('/time-interval', methods=['POST'])
-def send_time_interval():
-    """Sends user's time interval choice to get_all_responses."""
-    # return global variable that the 3 AJAX routes can use
-
-
-@app.route('/pie-chart.json', methods=['POST'])
+@app.route('/pie-chart.json')
 def calculate_mw_percentage():
     """Return percentage of the time a user mindwanders as JSON."""
-    responses = get_all_responses(session['user_id'])
+    interval = request.args.get('interval')
+
+    if interval:
+        responses = get_all_responses(session['user_id'], interval)
+    else:
+        responses = get_all_responses(session['user_id'])
+    
     pie_data = get_pie_data(responses)
     return jsonify(pie_data)
 
 
-@app.route('/mw_graph_data.json', methods=['POST'])
+@app.route('/mw_graph_data.json')
 def plot_mw_happiness():
     """Return plot points for happiness while mindwandering graph as JSON."""
-    responses = get_all_responses(session['user_id'])
+    interval = request.args.get('interval')
+
+    if interval:
+        responses = get_all_responses(session['user_id'], interval)
+    else:
+        responses = get_all_responses(session['user_id'])
+
     mw_graph_data = get_mw_graph_data(responses)
     return jsonify(mw_graph_data)
 
 
-@app.route('/not_mw_graph_data.json', methods=['POST'])
+@app.route('/not_mw_graph_data.json')
 def plot_not_mw_happiness():
     """Return plot points for happiness while not mindwandering graph as JSON."""
-    responses = get_all_responses(session['user_id'])
+    interval = request.args.get('interval')
+
+    if interval:
+        responses = get_all_responses(session['user_id'], interval)
+    else:
+        responses = get_all_responses(session['user_id'])
+        
     not_mw_graph_data = get_not_mw_graph_data(responses)
     return jsonify(not_mw_graph_data)
 

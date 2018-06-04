@@ -1,16 +1,17 @@
 from flask import Flask
 from model import connect_to_db, db, Response
 
-def get_all_responses(user_id):
-    """Queries db to get response column of all responses."""
+def get_all_responses(user_id, interval=112):
+    """Queries db to get response column of all responses from user in session."""
     responses = db.session.query(Response.response).filter(
         Response.user_id==user_id).all()
 
-    return responses
+    interval = int(interval)
+    return responses[:interval]
 
 
 def get_pie_data(responses):
-    """Takes all responses and formats into dictionary."""
+    """Takes all responses and takes mw or not mw value. Formats data for AJAX call."""
     wandering_counter = 0
     not_wandering_counter = 0
 

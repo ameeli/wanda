@@ -7,6 +7,8 @@ function createNotMwChart(data) {
     width = +svg2.attr("width") - margin.left - margin.right,
     height = +svg2.attr("height") - margin.top - margin.bottom;
 
+  svg2.selectAll("*").remove();
+
   var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
   var y = d3.scaleLinear().rangeRound([height, 0]);
 
