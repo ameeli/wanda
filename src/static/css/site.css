@@ -47,9 +47,15 @@
   background-color: #896889;
 }
 
+.buttons-container {
+  position: fixed;
+}
+
 .borderless-button {
   border: none;
   padding: 0;
   background: none;
   font: 14px sans-serif;
+  /*position: fixed;*/
+  display: inline;
 }
