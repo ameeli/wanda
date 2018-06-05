@@ -11,7 +11,7 @@
   color: #5A5A66;
 }
 
-.links a {
+.preferences-logout a {
   font: sans-serif;
   color: #5A5A66; 
 }
@@ -45,11 +45,15 @@
   background-color: #896889;
 }
 
-.buttons-container {
+/*.navbar {
   position: fixed;
+}*/
+
+.navbar-brand {
+  color: #2E5266;
 }
 
-.borderless-button {
+.nav-link {
   border: none;
   padding: 0;
   background: none;

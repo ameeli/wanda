@@ -4,20 +4,33 @@
 
 {% block content %}
 
-<div class="top-navbar">
-  <div id="portal">{{ fname }}'s Portal</div>
-  <div class="links">
-    <a href="/preferences">Preferences</a>
-    <a href="/logout">Logout</a>
-  </div>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">{{ fname }}'s Trends</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<div class="buttons-container">
-    <button class="borderless-button" id="today">Today</button>
-    <button class="borderless-button" id="this-week">This Week</button>
-    <button class="borderless-button" id="this-month">This Month</button>
-    <button class="borderless-button" id="all-time">All Time</button>
-</div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <button class="nav-link" id="today">Today<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <button class="nav-link" id="this-week">This Week<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <button class="nav-link" id="this-month">This Month<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" id="all-time">
+        <button class="nav-link">All Time<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <div class="preferences-logout">
+      <a href="/preferences">Preferences</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+</nav>
 
 <div class="pie-chart">
   <svg width="450" height="450" id="svg"></svg>
