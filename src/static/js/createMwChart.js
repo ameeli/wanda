@@ -5,7 +5,7 @@ function createMwChart(data) {
   var svg1 = d3.select("#svg1"),
     margin = {top: 70, right: 20, bottom: 70, left: 60},
     width = +svg1.attr("width") - margin.left - margin.right,
-    height = +svg1.attr("height") - margin.top - margin.bottom
+    height = +svg1.attr("height") - margin.top - margin.bottom;
 
   svg1.selectAll("*").remove();
 

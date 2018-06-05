@@ -6,8 +6,11 @@ function createPieChart(data) {
   var svg = d3.select("#svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height"),
-    radius = Math.min(width, height) / 2,
-    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    radius = Math.min(width, height) / 2
+
+  svg.selectAll("*").remove();
+    
+  var g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
   var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
 
@@ -38,33 +41,17 @@ function createPieChart(data) {
     .on("mouseout", handleMouseOut);
 
   arc.append("path")
-    .attr("d", path)
-    .attr("fill", function(d, i) { return color(d.data.mw); })
-    .transition().delay(function(d,i) {
-      return i * 500; }).duration(500)
-    .attrTween('d', function(d) {
-      var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
-      return function(t) {
-        d.endAngle = i(t); 
-        return arc(d)
-      }
-    });
+    .style("fill", function(d) { return color(d.data.mw); })
+      .transition()
+      .ease(d3.easeLinear)
+      .duration(800)
+      .attrTween("d", pieTween)
 
-  // d3.interval(function() {
-  //   path.transition()
-  //     .duration(750)
-  //     .attrTween("d");
-  //   }, 1500);
-
-  // function arcTween(newAngle) {
-  //   return function(d) {
-  //     var interpolate = d3.interpolate(d.endAngle, newAngle);
-  //     return function(t) {
-  //       d.endAngle = interpolate(t);
-  //       return arc(d);
-  //     };
-  //   };
-  // }
+  function pieTween(b) {
+    b.innterRadius = 0;
+    var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
+    return function(t) { return path(i(t)); };
+  }
 
   // labeling each half with text
   arc.append("text")
