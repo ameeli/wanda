@@ -134,6 +134,7 @@ def incoming_sms():
 def calculate_mw_percentage():
     """Return percentage of the time a user mindwanders as JSON."""
     interval = request.args.get('interval')
+    print interval
 
     if interval:
         responses = get_all_responses(session['user_id'], interval)
@@ -167,7 +168,7 @@ def plot_not_mw_happiness():
         responses = get_all_responses(session['user_id'], interval)
     else:
         responses = get_all_responses(session['user_id'])
-        
+
     not_mw_graph_data = get_not_mw_graph_data(responses)
     return jsonify(not_mw_graph_data)
 

@@ -5,8 +5,8 @@
 {% block content %}
 
 <div class="top-navbar">
-  <div id="title">{{ fname }}'s Portal</div>
-  <div id="link">
+  <div id="portal">{{ fname }}'s Portal</div>
+  <div class="links">
     <a href="/preferences">Preferences</a>
     <a href="/logout">Logout</a>
   </div>
@@ -19,11 +19,11 @@
     <button class="borderless-button" id="all-time">All Time</button>
 </div>
 
-<div id="pie-chart">
+<div class="pie-chart">
   <svg width="450" height="450" id="svg"></svg>
 </div>
 
-<div id="graphs">
+<div class="graphs">
   <svg width="500" height="500" id="svg1"></svg>
   <svg width="500" height="500" id="svg2"></svg>
 </div>
@@ -34,10 +34,10 @@
 
 <script>
   function passTodayInterval() {
-    var interval = 8;
+    var interval = 15;
     $.get("/pie-chart.json", {"interval": interval}, createPieChart);
     $.get("/mw_graph_data.json", {"interval": interval}, createMwChart);
-    $.get("/mw_graph_data.json", {"interval": interval}, createNotMwChart);
+    $.get("/not_mw_graph_data.json", {"interval": interval}, createNotMwChart);
   }
 
   $("#today").on("click", passTodayInterval);
@@ -46,7 +46,7 @@
     var interval = 40;
     $.get("/pie-chart.json", {"interval": interval}, createPieChart);
     $.get("/mw_graph_data.json", {"interval": interval}, createMwChart);
-    $.get("/mw_graph_data.json", {"interval": interval}, createNotMwChart);
+    $.get("/not_mw_graph_data.json", {"interval": interval}, createNotMwChart);
   }
 
   $("#this-week").on("click", passThisWeekInterval);
@@ -55,7 +55,7 @@
     var interval = 80;
     $.get("/pie-chart.json", {"interval": interval}, createPieChart);
     $.get("/mw_graph_data.json", {"interval": interval}, createMwChart);
-    $.get("/mw_graph_data.json", {"interval": interval}, createNotMwChart);
+    $.get("/not_mw_graph_data.json", {"interval": interval}, createNotMwChart);
   }
 
   $("#this-month").on("click", passThisMonthInterval);

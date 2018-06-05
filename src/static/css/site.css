@@ -6,21 +6,19 @@
   font: sans-serif;
 }
 
-#title {
-  font: 20px sans-serif;
+#portal {
+  font: 30px sans-serif;
+  color: #5A5A66;
 }
 
-#links {
-  display: flex;
+.links a {
+  font: sans-serif;
+  color: #5A5A66; 
 }
 
 .arc text {
   font: 20px sans-serif;
   text-anchor: middle;
-}
-
-.arc path {
-  stroke: #fff;
 }
 
 .bar {
@@ -56,6 +54,6 @@
   padding: 0;
   background: none;
   font: 14px sans-serif;
-  /*position: fixed;*/
+  color: #5A5A66;
   display: inline;
 }

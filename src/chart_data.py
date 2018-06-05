@@ -6,8 +6,8 @@ def get_all_responses(user_id, interval=112):
     responses = db.session.query(Response.response).filter(
         Response.user_id==user_id).all()
 
-    interval = int(interval)
-    return responses[:interval]
+    slice = int(interval)
+    return responses[:slice]
 
 
 def get_pie_data(responses):
