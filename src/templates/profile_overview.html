@@ -24,8 +24,11 @@
 </div>
 
 <div class="top-nav">
-  <nav class="navbar fixed-top navbar-expand-lg">
-    <div class="navbar-brand" id="trends">Wanda</div>
+  <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="/static/img/wanda.png" height="50" width="45">
+      <span class="wanda">Wanda</span>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,8 +37,8 @@
       <ul class="navbar-nav mr-auto">
       </ul>
       <div class="preferences-logout">
-        <a href="/preferences">Preferences</a>
-        <a href="/logout">Logout</a>
+        <a class="pref-logout" href="/preferences">Preferences</a>
+        <a class="pref-logout" href="/logout">Logout</a>
       </div>
     </div>
   </nav>

@@ -1,13 +1,15 @@
-/*font-family: 'Raleway', sans-serif;
-font-family: 'Sunflower', sans-serif;*/
+/*
+font-family: 'Raleway', sans-serif;
+font-family: 'Montserrat', sans-serif;
+*/
 
 .preferences-logout a {
-  font: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: #5A5A66; 
 }
 
 .arc text {
-  font: 20px sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-anchor: middle;
 }
 
@@ -29,29 +31,22 @@ font-family: 'Sunflower', sans-serif;*/
   height: auto;
   background: none repeat scroll 0 0 #ffffff;
   padding: 3px;
-  font: 12px sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-align: center;
   color: #ffffff;
   background-color: #896889;
 }
 
-#trends {
-  color: #2E5266;
-  font: 30px sans-serif;
-}
-
-.nav-link {
-  border: none;
-  background: none;
-  padding: 0;
-  font: 14px sans-serif;
-  color: #5A5A66;
-  display: inline;
-}
-
 .navbar {
   background-color: white;
   justify-content: center;
+}
+
+.wanda {
+  font-family: 'Raleway', sans-serif;
+  font-size: 35px;
+  color: #8e9aaf;
+  font-weight: bold;
 }
 
 .visuals {
@@ -67,18 +62,6 @@ font-family: 'Sunflower', sans-serif;*/
   display: flex;
   justify-content: space-around;
 }
-/*font-family: 'Raleway', sans-serif;
-font-family: 'Sunflower', sans-serif;*/
-
-.preferences-logout a {
-  font: sans-serif;
-  color: #5A5A66; 
-}
-
-.arc text {
-  font: 20px sans-serif;
-  text-anchor: middle;
-}
 
 .bar {
   fill: #C8A2C8;
@@ -113,13 +96,24 @@ font-family: 'Sunflower', sans-serif;*/
   border: none;
   background: none;
   padding: 0;
-  font: 14px sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: #5A5A66;
   display: inline;
+  cursor: pointer;
+}
+
+.nav-link:focus {
+  outline: 0;
 }
 
 .navbar {
   background-color: white;
+  padding: 0rem, .5rem;
+}
+
+.wanda-navbar {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
 }
 
 .navbar-nav {
@@ -130,8 +124,12 @@ font-family: 'Sunflower', sans-serif;*/
   padding-right: 5px;
 }
 
+.pref-logout {
+  padding-left: 10px;
+}
+
 .visuals {
-  padding-top: 100px;
+  padding-top: 135px;
 }
 
 .graphs {
@@ -148,14 +146,27 @@ font-family: 'Sunflower', sans-serif;*/
   margin-left: 20px;
 }
 
-.top-nav {
-  padding-bottom: 20px;
-}
-
 .pie-chart-text {
+  font-family: 'Montserrat', sans-serif;
   font-style: italic;
 }
 
 .intervals-navbar {
-  padding-top: 60px;
+  padding-top: 57px;
+}
+
+.welcome-text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.welcome-text h3 {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1 h2 h3 h4 h5 h6 {
+  font-family: 'Raleway', sans-serif;
+}
+
+img {
+  vertical-align: top;
 }
