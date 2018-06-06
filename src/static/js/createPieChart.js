@@ -44,7 +44,7 @@ function createPieChart(data) {
     .style("fill", function(d) { return color(d.data.mw); })
       .transition()
       .ease(d3.easeLinear)
-      .duration(800)
+      .duration(1500)
       .attrTween("d", pieTween)
 
   function pieTween(b) {
