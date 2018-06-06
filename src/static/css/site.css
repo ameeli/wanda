@@ -51,6 +51,7 @@ font-family: 'Sunflower', sans-serif;*/
 
 .navbar {
   background-color: white;
+  justify-content: center;
 }
 
 .visuals {
@@ -141,4 +142,20 @@ font-family: 'Sunflower', sans-serif;*/
 .container {
   display: flex;
   justify-content: space-around;
+}
+
+#svg {
+  margin-left: 20px;
+}
+
+.top-nav {
+  padding-bottom: 20px;
+}
+
+.pie-chart-text {
+  font-style: italic;
+}
+
+.intervals-navbar {
+  padding-top: 60px;
 }
