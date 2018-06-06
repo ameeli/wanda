@@ -1,15 +1,5 @@
-#navbar {
-  width: 100%;
-  display: flex;
-  align-content: center;
-  justify-content: space-between; 
-  font: sans-serif;
-}
-
-#portal {
-  font: 30px sans-serif;
-  color: #5A5A66;
-}
+/*font-family: 'Raleway', sans-serif;
+font-family: 'Sunflower', sans-serif;*/
 
 .preferences-logout a {
   font: sans-serif;
@@ -45,19 +35,34 @@
   background-color: #896889;
 }
 
-/*.navbar {
-  position: fixed;
-}*/
-
-.navbar-brand {
+#trends {
   color: #2E5266;
+  font: 30px sans-serif;
 }
 
 .nav-link {
   border: none;
-  padding: 0;
   background: none;
+  padding: 0;
   font: 14px sans-serif;
   color: #5A5A66;
   display: inline;
+}
+
+.navbar {
+  background-color: white;
+}
+
+.visuals {
+  padding-top: 100px;
+}
+
+.graphs {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
 }

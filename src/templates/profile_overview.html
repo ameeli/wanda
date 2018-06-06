@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">{{ fname }}'s Trends</a>
+<nav class="navbar fixed-top navbar-expand-lg">
+  <div class="navbar-brand" id="trends">Wanda</div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -13,16 +13,16 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <button class="nav-link" id="today">Today<span class="sr-only">(current)</span></a>
+        <button class="nav-link" id="today">Today<span class="sr-only">(current)</span></button>
       </li>
       <li class="nav-item active">
-        <button class="nav-link" id="this-week">This Week<span class="sr-only">(current)</span></a>
+        <button class="nav-link" id="this-week">This Week<span class="sr-only">(current)</span></button>
       </li>
       <li class="nav-item active">
-        <button class="nav-link" id="this-month">This Month<span class="sr-only">(current)</span></a>
+        <button class="nav-link" id="this-month">This Month<span class="sr-only">(current)</span></button>
       </li>
       <li class="nav-item active" id="all-time">
-        <button class="nav-link">All Time<span class="sr-only">(current)</span></a>
+        <button class="nav-link">All Time<span class="sr-only">(current)</span></button>
       </li>
     </ul>
     <div class="preferences-logout">
@@ -32,13 +32,33 @@
   </div>
 </nav>
 
-<div class="pie-chart">
-  <svg width="450" height="450" id="svg"></svg>
-</div>
+<div class="visuals">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div class="welcome-text">
+          <h3>Welcome back, {{ fname }}!</h3> 
+          Here are your current mindwandering and happiness trends. Mouse over each chart for more information.
+        </div>
+      </div>
+      <div class="col-9">
+        <svg width="450" height="450" id="svg"></svg>
+      </div>
+    </div>
+  </div>
 
-<div class="graphs">
-  <svg width="500" height="500" id="svg1"></svg>
-  <svg width="500" height="500" id="svg2"></svg>
+  <div class="graphs">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <svg width="500" height="500" id="svg1"></svg>
+        </div>
+        <div class="col-6">
+          <svg width="500" height="500" id="svg2"></svg>
+        </div>
+      </div>  
+    </div>
+  </div>
 </div>
 
 <script src="/static/js/createPieChart.js"></script>
