@@ -3,32 +3,53 @@
 {% block title %}Welcome back!{% endblock %}
 
 {% block content %}
+<div class="top-nav">
+  <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="/static/img/wanda.png" height="50" width="45">
+      <span class="wanda">Wanda</span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <img src="/static/img/wanda.png" height="100" width="90">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <div class="preferences-logout">
+        <a href="/register" id="link">Register</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="message-and-form mx-auto" style="width:305px" style="background-color:black">
+  <div class="homepage-message">
+    <h3 class="welcome-back">Welcome back!</h3>
+    <span class="login-message">Your journey to happiness starts here.</span>
+  </div>
 
   <form action="/login" method="POST">
-
     <div class="form-group">
+      <div>
         <label>
             Email
             <input type="email" name="email" class="form-control">
         </label>
       </div>
-
-      <div class="form-group">
+      <div>
         <label>
           Password
           <input type="password" name="password" class="form-control">
         </label>
       </div>
-
-      <div class="form-group">
+      <div>
         <input type="submit" value="Log In" class="btn btn-danger">
       </div>
-
+    </div>
   </form>
-
-  <a href="/register" id="link">Register</a>
+</div>
+  
 
 
 {% endblock %}

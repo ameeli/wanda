@@ -170,3 +170,30 @@ h1 h2 h3 h4 h5 h6 {
 img {
   vertical-align: top;
 }
+
+.form-group {
+  padding-top: 50px;
+}
+
+.welcome-back {
+  padding-top: 130px;
+}
+
+.login-message {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.welcome-back {
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #2e5266;
+  border-color: #2e5266;
+  font-family: 'Montserrat', sans-serif;
+}
+
+label {
+  font-family: 'Montserrat', sans-serif;
+}
