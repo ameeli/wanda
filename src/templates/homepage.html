@@ -3,25 +3,42 @@
 {% block title %}Wanda Welcome{% endblock %}
 
 {% block content %}
+<div class="top-nav">
+  <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="/static/img/wanda.png" height="50" width="45">
+      <span class="wanda">Wanda</span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <img src="/static/img/wanda.png" height="100" width="90">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <div class="preferences-logout">
+        <a class="pref-logout" href="/login">Log In</a>
+        <a class="pref-logout" href="/register">Register</a>
+      </div>
+    </div>
+  </nav>
+</div>
 
-  <h3>Be present. Be happy. Wanda is here to help.</h3>
+<div class="homepage-description mx-auto" style="width:580px">
+  <div>
+    <h3 class="be-present">Be present. Be happy. Wanda is here to help.</h3>
+    <div class="app-description">
+      Unlike other animals, humans spend around half of the day thinking about something other than what is going on around at the moment, contemplating events that happened in the past, might happen in the future, or will never happen at all. 
 
-  <div id="description">
-    Unlike other animals, humans spend around half of the day thinking about something other than what is going on around at the moment, contemplating events that happened in the past, might happen in the future, or will never happen at all. 
+      When our minds wander in this way, we are less happy and perform worse in motor skill activities. 
 
-    When our minds wander in this way, we are less happy and perform worse in motor skill activities. 
+      Inspired by studies done on mind wandering, Wanda was developed to help you decrease your mind wandering and increase your happiness.
+    </div>
 
-    Inspired by studies done on mind wandering, Wanda was developed to help you decrease your mind wandering and increase your happiness.
+    <div class="texting-explanation">
+      To get started, simply sign up with your mobile number. Wanda will send you texts throughout the day, reminding you to focus on the present. The text will also include a short survey to track your mind wandering habits and happiness levels.  
+    </div>
   </div>
-
-  <div id="texting-explanation">
-    To get started, simply sign up with your mobile number. Wanda will send you texts throughout the day, reminding you to focus on the present. The text will also include a short survey to track you mind wandering habits and happiness levels.
-      
-  </div>
-
-  <a href="/login">Log In</a><br>
-  <a href="/register">Register</a>
+</div>
 
 {% endblock %}

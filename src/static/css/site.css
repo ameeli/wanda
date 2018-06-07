@@ -197,3 +197,21 @@ img {
 label {
   font-family: 'Montserrat', sans-serif;
 }
+
+.homepage-description {
+  padding-top: 150px;
+}
+
+.be-present {
+  font-family: 'Raleway', sans-serif;
+}
+
+.app-description {
+  font-family: 'Montserrat', sans-serif;
+  padding-top: 20px;
+}
+
+.texting-explanation {
+  font-family: 'Montserrat', sans-serif;
+  padding-top: 20px;
+}
