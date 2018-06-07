@@ -7,7 +7,7 @@ def make_mw_responses():
     six = '6' * 21
     seven = '7' * 13
 
-    pairs = ['1, 3', '1, 3', '1, 4', '1, 4', '1, 8', '1, 8', '1, 8', '1, 9']
+    pairs = ['1, 2', '1, 3', '1, 4', '1, 4', '1, 8', '1, 8', '1, 8', '1, 9']
 
     fives = list(five)
     sixes = list(six)
@@ -29,12 +29,12 @@ def make_not_mw_responses():
     """Fakes mind wandering dataset and return a list of inputs."""
 
     five = '5' * 6
-    six = '6' * 16
+    six = '6' * 12
     seven = '7' * 18
-    eight = '8' * 14
-    nine = '9' * 5
+    eight = '8' * 16
+    nine = '9' * 7
 
-    pairs = ['2, 2', '2, 4', '2, 10']
+    pairs = ['2, 3', '2, 4', '2, 10']
 
     fives = list(five)
     sixes = list(six)

@@ -68,10 +68,14 @@ def get_not_mw_graph_data(responses):
 
     for response in responses:
         mind_wandering_response = int(response[0][0])
+
         happiness_level = int(response[0][3])
 
         if mind_wandering_response == 2:
-            happiness_frequency[happiness_level] += 1
+            if happiness_level == 1:
+                happiness_frequency[10] +=1
+            else:
+                happiness_frequency[happiness_level] += 1
 
     for key in happiness_frequency:
         formatted_data = {'happiness': key, 'frequency': happiness_frequency[key]}
