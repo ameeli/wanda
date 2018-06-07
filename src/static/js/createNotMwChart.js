@@ -68,6 +68,11 @@ function createNotMwChart(data) {
     .data(data)
     .enter().append("rect")
       .attr("class", "focusing-bar")
+      .transition()
+        .duration(800)
+        .delay(function (d, i) {
+          return i * 50;
+        })
       .attr("x", function(d) { return x(d.happiness); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())

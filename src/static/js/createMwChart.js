@@ -66,6 +66,11 @@ function createMwChart(data) {
     .data(data)
     .enter().append("rect")
       .attr("class", "mw-bar")
+      .transition()
+        .duration(500)
+        .delay(function (d, i) {
+          return i * 50;
+        })
       .attr("x", function(d) { return x(d.happiness); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())
