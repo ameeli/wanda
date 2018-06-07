@@ -235,6 +235,14 @@ label {
   font-family: 'Montserrat', sans-serif;
 }
 
+.tick > text {
+  fill: #5a5a66;
+}
+
+.domain {
+  stroke: #5a5a66;
+}
+
 #focus-pie-info {
   font-family: 'Montserrat', sans-serif;
   fill: #B8DBD9;
