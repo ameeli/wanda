@@ -4,12 +4,10 @@ font-family: 'Montserrat', sans-serif;
 */
 
 .preferences-logout a {
-  font-family: 'Montserrat', sans-serif;
   color: #5A5A66; 
 }
 
 .arc text {
-  font-family: 'Montserrat', sans-serif;
   text-anchor: middle;
 }
 
@@ -83,19 +81,13 @@ font-family: 'Montserrat', sans-serif;
   background-color: #fff;
 }
 
-#trends {
-  color: #2E5266;
-  font: 30px sans-serif;
-}
-
 .nav-link {
   border: none;
   background: none;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  color: #5A5A66;
   display: inline;
   cursor: pointer;
+  color: #5a5a66;
 }
 
 .nav-link:focus {
@@ -103,12 +95,18 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-  background-color: white;
   padding: 0rem, .5rem;
   justify-content: center;
 }
 
 .wanda-navbar {
+  background-color: white;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+}
+
+.intervals-navbar {
+  background-color: white;
   padding-top: 0rem;
   padding-bottom: 0rem;
 }
@@ -144,18 +142,11 @@ font-family: 'Montserrat', sans-serif;
 }
 
 .pie-chart-text {
-  font-family: 'Montserrat', sans-serif;
   font-style: italic;
-  color: #5a5a66;
 }
 
 .intervals-navbar {
   padding-top: 57px;
-}
-
-.welcome-text {
-  font-family: 'Montserrat', sans-serif;
-  color: #5a5a66;
 }
 
 .welcome-text h3 {
@@ -173,10 +164,6 @@ img {
 
 .welcome-back {
   padding-top: 130px;
-}
-
-.login-message {
-  font-family: 'Montserrat', sans-serif;
 }
 
 .welcome-back {
@@ -201,7 +188,7 @@ label {
 }
 
 .homepage-description {
-  padding-top: 150px;
+  padding-top: 200px;
 }
 
 .register-explaination {
@@ -214,15 +201,11 @@ label {
 }
 
 .app-description {
-  font-family: 'Montserrat', sans-serif;
-  color: #5a5a66;
   padding-top: 20px;
 }
 
 .texting-explanation {
-  font-family: 'Montserrat', sans-serif;
   padding-top: 20px;
-  color: #5a5a66;
 }
 
 .graph-titles {
@@ -232,7 +215,6 @@ label {
 }
 
 .graph-labels {
-  font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   fill: #5a5a66;
 }
@@ -257,4 +239,32 @@ label {
 #mw-pie-info {
   font-family: 'Montserrat', sans-serif;
   fill: #8E9AAF;
+}
+
+.background-image {
+  background-image: url("mountain.opaque.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  color: #5a5a66;;
+}
+
+.preferences-table {
+  padding-top: 150px;
+}
+
+.edit-timetable {
+  font-family: 'Raleway', sans-serif;
+}
+
+.timetable {
+  padding-top: 15px;
+}
+
+.submit {
+  padding-top: 22px;
 }
