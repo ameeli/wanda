@@ -194,6 +194,11 @@ img {
   font-family: 'Montserrat', sans-serif;
 }
 
+.btn-danger:hover {
+  background-color: #8e9aaf;
+  border: #8e9aaf;
+}
+
 label {
   font-family: 'Montserrat', sans-serif;
 }
