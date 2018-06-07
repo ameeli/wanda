@@ -3,52 +3,63 @@
 {% block title %}Wanda Register{% endblock %}
 
 {% block content %}
+<div class="top-nav">
+  <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="/static/img/wanda.png" height="50" width="45">
+      <span class="wanda">Wanda</span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<div>
-<h1>Register</h1>
-
-<form action="/register" method="POST">
-
-  <div class="form-group">
-    <label>
-        First Name
-        <input type="text" name="fname" class="form-control">
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label>
-        Last Name
-        <input type="text" name="lname" class="form-control">
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label>
-        Email
-        <input type="email" name="email" class="form-control">
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label>
-      Password
-      <input type="password" name="password" class="form-control">
-    </label>
-  </div>
-
-  <div class="form-group">
-    <label>
-      Mobile
-      <input type="text" name="mobile" class="form-control">
-    </label>
-  </div>
-
-  <div class="form-group">
-    <input type="submit" value="Find happiness!" class="btn btn-danger">
-  </div>
-
-</form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <div class="preferences-logout">
+        <a class="pref-logout" href="/login">Log In</a>
+      </div>
+    </div>
+  </nav>
 </div>
+
+<div class="register-explaination mx-auto" style="width:600px">
+  <div>
+    <h3 class="be-present">Your journey to happiness awaits.</h3>
+    <div class="texting-explanation">
+      To get started, simply sign up with your mobile number. Wanda will send you texts throughout the day, reminding you to focus on the present. The text will also include a short survey to track your mind wandering habits and happiness levels.  
+    </div>
+  </div>
+</div>
+
+<div class="mx-auto" style="width:300px">
+  <form action="/register" method="POST">
+    <div class="form-group">
+        <label>
+          First Name
+          <input type="text" name="fname" class="form-control">
+        </label>
+        <label>
+          Last Name
+          <input type="text" name="lname" class="form-control">
+        </label>
+        <label>
+            Email
+            <input type="email" name="email" class="form-control">
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" class="form-control">
+        </label>
+        <label>
+          Mobile
+          <input type="text" name="mobile" class="form-control">
+        </label>
+        <input type="submit" value="Find happiness!" class="btn btn-danger">
+    </div>
+  </form>
+</div>
+
+
 
 {% endblock %}

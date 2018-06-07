@@ -204,12 +204,18 @@ label {
   padding-top: 150px;
 }
 
+.register-explaination {
+  padding-top: 100px;
+}
+
 .be-present {
   font-family: 'Raleway', sans-serif;
+  color: #5a5a66;
 }
 
 .app-description {
   font-family: 'Montserrat', sans-serif;
+  color: #5a5a66;
   padding-top: 20px;
 }
 
