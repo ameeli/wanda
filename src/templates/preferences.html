@@ -3,72 +3,95 @@
 {% block title %}Wanda Preferences{% endblock %}
 
 {% block content %}
-  <div class="top-nav">
-    <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
-      <div class="navbar-brand">
-        <img src="/static/img/wanda.png" height="50" width="45">
-        <span class="wanda">Wanda</span>
+<div class="top-nav">
+  <nav class="wanda-navbar navbar fixed-top navbar-expand-lg">
+    <div class="navbar-brand">
+      <img src="/static/img/wanda.png" height="50" width="45">
+      <span class="wanda">Wanda</span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <div class="preferences-logout">
+        <a href="/" id="link">Home</a>
+        <a class="pref-logout" href="/logout">Logout</a>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
+</div>
 
-  <h3>Edit Preferences</h3>
+<div class="preferences-table mx-auto" style="width:400px">
+  <h3 class="edit-timetable">Edit Timetable</h3>
+  <span class="when-receive-text">
+    Wanda will send you reminder texts with surveys at random times throughout the day. When would you like to receive Wanda's texts?
+  </span>
 
-    <form action="/preferences" method="POST">
-        <h5>Wanda will send you reminder texts with surveys at random times throughout the day. When would you like to receive Wanda's texts?</h5>
-
-        <div>
-          Monday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Tuesday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Wednesday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Thursday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Friday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Saturday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <div>
-          Sunday
-          <input type="time" name="start_time" value="08:00"> to
-          <input type="time" name="stop_time" value="22:00">
-        </div>
-
-        <input type="submit">
-    </form>
-
-  <script>
-    let daysOfWeek = document.querySelector('#day_of_week').value
-  </script>
-
-  <div>
-    <a href="/" id="link">Back to home</a>
-  </div>
-
+  <form class="timetable" action="/preferences" method="POST">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Monday</span>
+      </div>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Tuesday</span>
+      </div>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Wednesday</span>
+      </div>
+      <br>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Thursday</span>
+      </div>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Friday</span>
+      </div>
+      <br>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Saturday</span>
+      </div>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <br>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="">Sunday</span>
+      </div>
+      <input type="time" class="form-control" name="start-time" value="08:00">
+      <input type="time" class="form-control" name="stop-time" value="22:00">
+    </div>
+    <div class="submit">
+      <input class="btn btn-danger" type="submit">
+    </div>
+  </form>
+</div>
 
 {% endblock %}
