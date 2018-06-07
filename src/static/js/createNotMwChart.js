@@ -25,20 +25,16 @@ function createNotMwChart(data) {
   g.append("text")
     .attr("x", (width / 2))             
     .attr("y", 0 - (margin.top / 2))
-    .attr("text-anchor", "middle")  
-    .style("font-size", "16px") 
+    .attr("text-anchor", "middle")   
     .style("text-decoration", "none")  
+    .attr("class", "graph-titles")
     .text("Happiness While Focusing"); 
-
-  // add the x axis
-  g.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
 
   // text label for the x axis
   g.append("text")             
     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top - 30) + ")")
     .style("text-anchor", "middle")
+    .attr("class", "graph-labels")
     .text("Happiness");
 
   // text label for the y axis
@@ -48,16 +44,19 @@ function createNotMwChart(data) {
     .attr("x",0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
+    .attr("class", "graph-labels")
     .text("Frequency");   
 
   g.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x))
+    .attr("class", "ticks");
 
   g.append("g")
     .attr("class", "axis axis--y")
     .call(d3.axisLeft(y).ticks(10))
+    .attr("class", "ticks")
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
@@ -68,7 +67,7 @@ function createNotMwChart(data) {
   g.selectAll(".bar")
     .data(data)
     .enter().append("rect")
-      .attr("class", "bar")
+      .attr("class", "focusing-bar")
       .attr("x", function(d) { return x(d.happiness); })
       .attr("y", function(d) { return y(d.frequency); })
       .attr("width", x.bandwidth())

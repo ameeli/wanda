@@ -12,7 +12,7 @@ function createPieChart(data) {
     
   var g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  var color = d3.scaleOrdinal(["#98abc5", "#8a89a6"]);
+  var color = d3.scaleOrdinal(["#8e9aaf", "#b8dbd9"]);
 
   // points to where pie should get % data
   var pie = d3.pie()
@@ -63,20 +63,17 @@ function createPieChart(data) {
 
   function handleMouseOver() {
     arc.append("text")
-      .style("font", "15px sans-serif")
-      .attr("fill", "#8a89a6")
-      .attr("id", "info")
+      .attr("id", "focus-pie-info")
       .text("Focusing: 62 reports")
       
     arc.append("text")
       .attr("transform", "translate(0, 20)" )
-      .attr("fill", "#98abc5")
-      .style("font", "15px sans-serif")
-      .attr("id", "info")
+      .attr("id", "mw-pie-info")
       .text("Wandering: 50 reports");
   }
 
   function handleMouseOut() {
-    svg.selectAll("#info").remove();
+    svg.selectAll("#focus-pie-info").remove();
+    svg.selectAll("#mw-pie-info").remove();
   }
 }

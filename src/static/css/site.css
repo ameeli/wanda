@@ -13,14 +13,6 @@ font-family: 'Montserrat', sans-serif;
   text-anchor: middle;
 }
 
-.bar {
-  fill: #C8A2C8;
-}
-
-.bar:hover {
-  fill: #D8BFD8;
-}
-
 .axis--x path {
   display: none;
 }
@@ -37,15 +29,10 @@ font-family: 'Montserrat', sans-serif;
   background-color: #896889;
 }
 
-.navbar {
-  background-color: white;
-  justify-content: center;
-}
-
 .wanda {
   font-family: 'Raleway', sans-serif;
   font-size: 35px;
-  color: #8e9aaf;
+  color: #2e5266;
   font-weight: bold;
 }
 
@@ -63,12 +50,20 @@ font-family: 'Montserrat', sans-serif;
   justify-content: space-around;
 }
 
-.bar {
-  fill: #C8A2C8;
+.mw-bar {
+  fill: #8e9aaf;
 }
 
-.bar:hover {
-  fill: #D8BFD8;
+.mw-bar:hover {
+  fill: #b8dbd9;
+}
+
+.focusing-bar {
+  fill: #b8dbd9;
+}
+
+.focusing-bar:hover {
+  fill: #8e9aaf;
 }
 
 .axis--x path {
@@ -79,12 +74,13 @@ font-family: 'Montserrat', sans-serif;
   position: absolute;
   display: none;
   height: auto;
-  background: none repeat scroll 0 0 #ffffff;
+  background: none repeat scroll;
   padding: 3px;
-  font: 12px sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
   text-align: center;
-  color: #ffffff;
-  background-color: #896889;
+  color: #5A5A66;
+  background-color: #FFE2D1;
 }
 
 #trends {
@@ -109,6 +105,7 @@ font-family: 'Montserrat', sans-serif;
 .navbar {
   background-color: white;
   padding: 0rem, .5rem;
+  justify-content: center;
 }
 
 .wanda-navbar {
@@ -149,6 +146,7 @@ font-family: 'Montserrat', sans-serif;
 .pie-chart-text {
   font-family: 'Montserrat', sans-serif;
   font-style: italic;
+  color: #5a5a66;
 }
 
 .intervals-navbar {
@@ -157,14 +155,12 @@ font-family: 'Montserrat', sans-serif;
 
 .welcome-text {
   font-family: 'Montserrat', sans-serif;
+  color: #5a5a66;
 }
 
 .welcome-text h3 {
   font-family: 'Raleway', sans-serif;
-}
-
-h1 h2 h3 h4 h5 h6 {
-  font-family: 'Raleway', sans-serif;
+  color: #5a5a66;
 }
 
 img {
@@ -185,6 +181,7 @@ img {
 
 .welcome-back {
   font-family: 'Raleway', sans-serif;
+  color: #5a5a66;
 }
 
 .btn-danger {
@@ -219,4 +216,31 @@ label {
 .texting-explanation {
   font-family: 'Montserrat', sans-serif;
   padding-top: 20px;
+  color: #5a5a66;
+}
+
+.graph-titles {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  fill: #5a5a66;
+}
+
+.graph-labels {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  fill: #5a5a66;
+}
+
+.ticks {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#focus-pie-info {
+  font-family: 'Montserrat', sans-serif;
+  fill: #B8DBD9;
+}
+
+#mw-pie-info {
+  font-family: 'Montserrat', sans-serif;
+  fill: #8E9AAF;
 }
