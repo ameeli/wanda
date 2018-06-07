@@ -67,22 +67,22 @@ function createNotMwChart(data) {
   g.selectAll(".bar")
     .data(data)
     .enter().append("rect")
-      .attr("class", "focusing-bar")
-      .transition()
-        .duration(800)
-        .delay(function (d, i) {
-          return i * 50;
-        })
-      .attr("x", function(d) { return x(d.happiness); })
-      .attr("y", function(d) { return y(d.frequency); })
-      .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d.frequency); })
-      .on("mouseover", function(d){
-            tooltip
-              .style("left", d3.event.pageX - 35 + "px")
-              .style("top", d3.event.pageY - 30 + "px")
-              .style("display", "inline-block")
-              .html((d.frequency) + " reports");
-        })
-        .on("mouseout", function(d){ tooltip.style("display", "none");});
+    .attr("class", "focusing-bar")
+    .on("mouseover", function(d){
+      tooltip
+        .style("left", d3.event.pageX - 35 + "px")
+        .style("top", d3.event.pageY - 30 + "px")
+        .style("display", "inline-block")
+        .html((d.frequency) + " reports");
+      })
+      .on("mouseout", function(d){ tooltip.style("display", "none");})
+    .transition()
+      .duration(800)
+      .delay(function (d, i) {
+        return i * 50;
+      })
+    .attr("x", function(d) { return x(d.happiness); })
+    .attr("y", function(d) { return y(d.frequency); })
+    .attr("width", x.bandwidth())
+    .attr("height", function(d) { return height - y(d.frequency); });
 }
