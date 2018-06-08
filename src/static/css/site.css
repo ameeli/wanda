@@ -86,6 +86,9 @@ body, html {
   display: inline;
   cursor: pointer;
   color: #5a5a66;
+}
+
+button:focus {
   outline: 0;
 }
 
