@@ -116,7 +116,7 @@
     var interval = 112;
     $.get("/pie-chart.json", {"interval": interval}, createPieChart);
     $.get("/mw_graph_data.json", {"interval": interval}, createMwChart);
-    $.get("/mw_graph_data.json", {"interval": interval}, createNotMwChart);
+    $.get("/not_mw_graph_data.json", {"interval": interval}, createNotMwChart);
   }
 
   $("#all-time").on("click", passAllTimeInterval);
