@@ -1,4 +1,4 @@
-# Wanda
+![alt text](https://github.com/ameeli/wanda/blob/master/src/static/img/wanda-icon.png)
 
 ## Summary
 
