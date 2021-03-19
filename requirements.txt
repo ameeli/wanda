@@ -14,7 +14,7 @@ ipaddress==1.0.22
 ipython==5.7.0
 ipython-genutils==0.2.0
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 pathlib2==2.3.2
 pexpect==4.5.0
